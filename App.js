@@ -4,57 +4,95 @@ import React, {useState} from "react";
 import {
   StyleSheet,
   Text,
-  TextInput,
-  ImageBackground,
   View,
+  ImageBackground,
+  TextInput,
   TouchableOpacity,
+  Platform,
+  KeyboardAvoidingView,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from "react-native";
 // import Blank from "./Screens/screen";
-
+const initialState = {
+  login: "",
+  email: "",
+  pass: "",
+};
 export default function App() {
-  const [login, setLogin] = useState("");
-  const loginHandler = (text) => setLogin(text);
-  const [email, setEmail] = useState("");
-  const emailHandler = (text) => setEmail(text);
-  const [pass, setPass] = useState("");
-  const passHandler = (text) => setPass(text);
+  // const [login, setLogin] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [pass, setPass] = useState("");
+
+  console.log(Platform.OS);
+  const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+  const [state, setstate] = useState(initialState);
+
+  const keyboardHide = () => {
+    setIsShowKeyboard(false);
+    Keyboard.dismiss();
+    console.log(state);
+    setstate(initialState);
+  };
+
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <ImageBackground
-        source={require("./assets/imgBgReg.png")}
-        resizeMode="cover"
-        style={styles.image}
-      >
-        <View style={styles.formBox}>
-          <View style={styles.picBox}></View>
-          <Text style={styles.title}>Регистрация</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Логин"
-            value={login}
-            onChangeText={loginHandler}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Адрес электронной почты "
-            value={email}
-            onChangeText={emailHandler}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Пароль"
-            value={pass}
-            onChangeText={passHandler}
-          />
-          <TouchableOpacity activeOpacity={0.8} style={styles.btn}>
-            <Text style={styles.btnTitle}>Зарегистрироваться</Text>
-          </TouchableOpacity>
-          <Text>Уже есть аккаунт? Войти</Text>
-          <View style={styles.indicator}></View>
-        </View>
-      </ImageBackground>
-    </View>
+    <TouchableWithoutFeedback onPress={keyboardHide}>
+      <View style={styles.container}>
+        <StatusBar style="auto" />
+        <ImageBackground
+          source={require("./assets/imgBgReg.png")}
+          resizeMode="cover"
+          style={styles.image}
+        >
+          <KeyboardAvoidingView
+            behavior={Platform.OS == "ios" ? "padding" : "height"}
+          >
+            <View
+              style={{
+                ...styles.formBox,
+                marginBottom: isShowKeyboard ? 20 : 150,
+              }}
+            >
+              <View style={styles.picBox}></View>
+              <Text style={styles.title}>Регистрация</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Логин"
+                onFocus={() => setIsShowKeyboard(true)}
+                value={state.login}
+                onChangeText={(value) =>
+                  setstate((prevState) => ({...prevState, login: value}))
+                }
+              />
+              <TextInput
+                style={styles.input}
+                placeholder="Адрес электронной почты "
+                onFocus={() => setIsShowKeyboard(true)}
+                value={state.email}
+                onChangeText={(value) =>
+                  setstate((prevState) => ({...prevState, email: value}))
+                }
+              />
+              <TextInput
+                style={styles.input}
+                placeholder="Пароль"
+                onFocus={() => setIsShowKeyboard(true)}
+                value={state.pass}
+                onChangeText={(value) =>
+                  setstate((prevState) => ({...prevState, password: value}))
+                }
+                secureTextEntry={true}
+              />
+              <TouchableOpacity activeOpacity={0.8} style={styles.btn}>
+                <Text style={styles.btnTitle}>Зарегистрироваться</Text>
+              </TouchableOpacity>
+              <Text>Уже есть аккаунт? Войти</Text>
+              <View style={styles.indicator}></View>
+            </View>
+          </KeyboardAvoidingView>
+        </ImageBackground>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -66,7 +104,7 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     // justifyContent: "center",
-    justifyContent: "end",
+    justifyContent: "flex-end",
     alignItems: "center",
     // justifyContent: "center",
   },
