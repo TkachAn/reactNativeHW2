@@ -6,6 +6,7 @@ import {
   Text,
   View,
   ImageBackground,
+  Image,
   TextInput,
   TouchableOpacity,
   Platform,
@@ -13,13 +14,13 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
-// import Blank from "./Screens/screen";
+
 const initialState = {
   login: "",
   email: "",
   pass: "",
 };
-const keyBool = false;
+
 export default function App() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setstate] = useState(initialState);
@@ -27,12 +28,12 @@ export default function App() {
 
   console.log("isShowKeyboard:", isShowKeyboard);
   const keyboardHide = () => {
-    setIsShowKeyboard(false);
     Keyboard.dismiss();
-    console.log(state);
     setstate(initialState);
+    console.log(state);
+    setIsShowKeyboard(false);
   };
-
+  console.log("isShowKeyboard1:", isShowKeyboard);
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
       <View style={styles.container}>
@@ -40,7 +41,6 @@ export default function App() {
           style={styles.image}
           source={require("./assets/imgBgReg.png")}
         >
-          {/* <View style={styles.image}> */}
           <KeyboardAvoidingView
             behavior={Platform.OS == "ios" ? "padding" : "height"}
           >
@@ -48,20 +48,20 @@ export default function App() {
               style={{
                 ...styles.formBox,
                 marginBottom: isShowKeyboard ? 100 : 5,
-                // backgroundColor: isShowKeyboard ? "green" : "yellow",
+                backgroundColor: isShowKeyboard ? "green" : "yellow",
               }}
             >
               {/* <View style={styles.formBox}> */}
               <View style={styles.picBox}>
-                <TouchableOpacity
-                  style={styles.plus}
-                  // onPress={keyboardHide}
-                  activeOpacity={0.8}
-                >
-                  <Text style={styles.btnPlus}>+</Text>
+                <TouchableOpacity style={styles.plus} activeOpacity={0.8}>
+                  <View>
+                    <Image
+                      style={styles.plusPic}
+                      source={require("./assets/plusOnly.png")}
+                    />
+                  </View>
                 </TouchableOpacity>
               </View>
-
               <Text style={styles.title}>Регистрация</Text>
               <TextInput
                 style={styles.input}
@@ -119,11 +119,19 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    resizeMode: "cover",
+    // resizeMode: "cover",
     justifyContent: "flex-end",
+  },
+  plusPic: {
+    // flex: 1,
+    // resizeMode: "cover",
+    justifyContent: "center",
+    alignItems: "center",
+    // zIndex: 5,
   },
 
   formBox: {
+    // flex: 1,
     position: "relative",
     alignItems: "center",
     borderRadius: 25,
@@ -138,6 +146,20 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     borderWidth: 1,
     backgroundColor: "#F6F6F6",
+  },
+  plus: {
+    position: "absolute",
+    backgroundColor: "#FFF",
+    height: 25,
+    width: 25,
+    borderWidth: 1,
+    borderRadius: 12.5,
+    borderColor: "#FF6C00",
+
+    bottom: 20,
+    right: -12.5,
+    justifyContent: "center",
+    alignItems: "center",
   },
   title: {
     marginTop: 92,
@@ -178,26 +200,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#212121",
     marginBottom: 7,
   },
-  plus: {
-    position: "absolute",
-    backgroundColor: "#FFF",
-    height: 25,
-    width: 25,
-    borderWidth: 1,
-    borderRadius: 12.5,
-    borderColor: "#FF6C00",
 
-    bottom: 20,
-    right: -12.5,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  btnPlus: {
-    position: "absolute",
-    // bottom: -2,
-    // bottom: -1,
-    top: -2,
-    fontSize: 25,
-    color: "#FF6C00",
-  },
+  // btnPlus: {
+  //   position: "absolute",
+  //   // bottom: -2,
+  //   // bottom: -1,
+  //   top: -2,
+  //   fontSize: 35,
+  //   fontWieght: "100",
+  //   color: "#FF6C00",
+  // },
 });
