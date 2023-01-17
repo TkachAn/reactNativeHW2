@@ -19,15 +19,13 @@ const initialState = {
   email: "",
   pass: "",
 };
+const keyBool = false;
 export default function App() {
-  // const [login, setLogin] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [pass, setPass] = useState("");
-
-  console.log(Platform.OS);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setstate] = useState(initialState);
+  console.log("Platform:", Platform.OS);
 
+  console.log("isShowKeyboard:", isShowKeyboard);
   const keyboardHide = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
@@ -38,22 +36,32 @@ export default function App() {
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
       <View style={styles.container}>
-        <StatusBar style="auto" />
         <ImageBackground
-          source={require("./assets/imgBgReg.png")}
-          resizeMode="cover"
           style={styles.image}
+          source={require("./assets/imgBgReg.png")}
         >
+          {/* <View style={styles.image}> */}
           <KeyboardAvoidingView
             behavior={Platform.OS == "ios" ? "padding" : "height"}
           >
             <View
               style={{
                 ...styles.formBox,
-                marginBottom: isShowKeyboard ? 20 : 150,
+                marginBottom: isShowKeyboard ? 100 : 5,
+                // backgroundColor: isShowKeyboard ? "green" : "yellow",
               }}
             >
-              <View style={styles.picBox}></View>
+              {/* <View style={styles.formBox}> */}
+              <View style={styles.picBox}>
+                <TouchableOpacity
+                  style={styles.plus}
+                  // onPress={keyboardHide}
+                  activeOpacity={0.8}
+                >
+                  <Text style={styles.btnPlus}>+</Text>
+                </TouchableOpacity>
+              </View>
+
               <Text style={styles.title}>Регистрация</Text>
               <TextInput
                 style={styles.input}
@@ -77,19 +85,28 @@ export default function App() {
                 style={styles.input}
                 placeholder="Пароль"
                 onFocus={() => setIsShowKeyboard(true)}
+                secureTextEntry={true}
                 value={state.pass}
                 onChangeText={(value) =>
-                  setstate((prevState) => ({...prevState, password: value}))
+                  setstate((prevState) => ({...prevState, pass: value}))
                 }
-                secureTextEntry={true}
               />
-              <TouchableOpacity activeOpacity={0.8} style={styles.btn}>
+              {/* <View style={styles.btn}> */}
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={keyboardHide}
+                activeOpacity={0.8}
+              >
                 <Text style={styles.btnTitle}>Зарегистрироваться</Text>
               </TouchableOpacity>
+              {/* </View> */}
               <Text>Уже есть аккаунт? Войти</Text>
               <View style={styles.indicator}></View>
             </View>
+            {/* </View> */}
           </KeyboardAvoidingView>
+          {/* </View> */}
+          <StatusBar style="auto" />
         </ImageBackground>
       </View>
     </TouchableWithoutFeedback>
@@ -99,26 +116,18 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: "#fff",
   },
   image: {
     flex: 1,
-    // justifyContent: "center",
+    resizeMode: "cover",
     justifyContent: "flex-end",
-    alignItems: "center",
-    // justifyContent: "center",
   },
+
   formBox: {
     position: "relative",
-    paddingTop: 92,
-    paddingBottom: 15,
-    borderRadius: 26,
     alignItems: "center",
-
+    borderRadius: 25,
     backgroundColor: "#fff",
-    // width: 375,
-    width: "100%",
-    height: "67%",
   },
   picBox: {
     position: "absolute",
@@ -129,9 +138,9 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     borderWidth: 1,
     backgroundColor: "#F6F6F6",
-    // boxShadows: "10px 5px 5px 10px red",
   },
   title: {
+    marginTop: 92,
     fontSize: 30,
     fontWeight: "500",
     marginBottom: 33,
@@ -163,9 +172,32 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   indicator: {
-    marginTop: 66,
+    marginTop: 46,
     width: 134,
     height: 5,
     backgroundColor: "#212121",
+    marginBottom: 7,
+  },
+  plus: {
+    position: "absolute",
+    backgroundColor: "#FFF",
+    height: 25,
+    width: 25,
+    borderWidth: 1,
+    borderRadius: 12.5,
+    borderColor: "#FF6C00",
+
+    bottom: 20,
+    right: -12.5,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  btnPlus: {
+    position: "absolute",
+    // bottom: -2,
+    // bottom: -1,
+    top: -2,
+    fontSize: 25,
+    color: "#FF6C00",
   },
 });
