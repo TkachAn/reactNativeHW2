@@ -1,5 +1,8 @@
+import React, {useState, useCallback} from "react";
 import {StatusBar} from "expo-status-bar";
-import React, {useState} from "react";
+import {useFonts} from "expo-font";
+
+import * as SplashScreen from "expo-splash-screen";
 
 import {
   StyleSheet,
@@ -24,92 +27,115 @@ const initialState = {
 export default function App() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setstate] = useState(initialState);
-  console.log("Platform:", Platform.OS);
+  const [isShowPassword, setIsShowPassword] = useState(true);
+  // console.log("Platform:", Platform.OS);
+  const [fontsLoaded] = useFonts({
+    "Roboto-400": require("./assets/fonts/Roboto/Roboto-Regular.ttf"),
+    "Roboto-500": require("./assets/fonts/Roboto/Roboto-Medium.ttf"),
+    "Roboto-700": require("./assets/fonts/Roboto/Roboto-Bold.ttf"),
+  });
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
 
-  console.log("isShowKeyboard:", isShowKeyboard);
+  if (!fontsLoaded) {
+    return null;
+  }
+
   const keyboardHide = () => {
     Keyboard.dismiss();
     setstate(initialState);
     console.log(state);
     setIsShowKeyboard(false);
+    setIsShowPassword(true);
   };
-  console.log("isShowKeyboard1:", isShowKeyboard);
+  const showPassword = () => setIsShowPassword(!isShowPassword);
   return (
-    <TouchableWithoutFeedback onPress={keyboardHide}>
-      <View style={styles.container}>
-        <ImageBackground
-          style={styles.image}
-          source={require("./assets/imgBgReg.png")}
+    <View style={styles.container}>
+      <ImageBackground
+        style={styles.image}
+        source={require("./assets/imgBgReg.png")}
+      >
+        <StatusBar style="auto" />
+        <TouchableWithoutFeedback
+          onPress={keyboardHide}
+          onLayout={onLayoutRootView}
         >
-          <KeyboardAvoidingView
-            behavior={Platform.OS == "ios" ? "padding" : "height"}
-          >
-            <View
-              style={{
-                ...styles.formBox,
-                marginBottom: isShowKeyboard ? 100 : 5,
-                backgroundColor: isShowKeyboard ? "green" : "yellow",
-              }}
+          <View>
+            <KeyboardAvoidingView
+              behavior={Platform.OS == "ios" ? "padding" : "height"}
             >
-              {/* <View style={styles.formBox}> */}
-              <View style={styles.picBox}>
-                <TouchableOpacity style={styles.plus} activeOpacity={0.8}>
-                  <View>
-                    <Image
-                      style={styles.plusPic}
-                      source={require("./assets/plusOnly.png")}
-                    />
-                  </View>
+              <View style={styles.formBox}>
+                <View style={styles.picBox}>
+                  <TouchableOpacity style={styles.plus} activeOpacity={0.8}>
+                    <View>
+                      <Image
+                        style={styles.plusPic}
+                        source={require("./assets/plusOnly.png")}
+                      />
+                    </View>
+                  </TouchableOpacity>
+                </View>
+                <Text style={styles.title}>Регистрация</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Логин"
+                  onFocus={() => setIsShowKeyboard(true)}
+                  value={state.login}
+                  onChangeText={(value) =>
+                    setstate((prevState) => ({...prevState, login: value}))
+                  }
+                />
+                <TextInput
+                  style={styles.input}
+                  placeholder="Адрес электронной почты "
+                  onFocus={() => setIsShowKeyboard(true)}
+                  value={state.email}
+                  onChangeText={(value) =>
+                    setstate((prevState) => ({...prevState, email: value}))
+                  }
+                />
+                <View style={styles.input}>
+                  <TextInput
+                    style={styles.inputPass}
+                    placeholder="Пароль"
+                    onFocus={() => setIsShowKeyboard(true)}
+                    secureTextEntry={isShowPassword}
+                    value={state.pass}
+                    onChangeText={(value) =>
+                      setstate((prevState) => ({...prevState, pass: value}))
+                    }
+                  />
+                  <TouchableOpacity
+                    style={styles.input_btn}
+                    onPress={showPassword}
+                  >
+                    <Text style={styles.input__text}>Показать</Text>
+                  </TouchableOpacity>
+                </View>
+
+                {/* <View style={styles.btn}> */}
+                <TouchableOpacity
+                  style={styles.btn}
+                  onPress={keyboardHide}
+                  activeOpacity={0.8}
+                >
+                  <Text style={styles.btnTitle}>Зарегистрироваться</Text>
                 </TouchableOpacity>
+                {/* </View> */}
+                <TouchableOpacity style={styles.link}>
+                  <Text style={styles.link__text}>Уже есть аккаунт? Войти</Text>
+                </TouchableOpacity>
+                <View style={styles.indicator}></View>
               </View>
-              <Text style={styles.title}>Регистрация</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="Логин"
-                onFocus={() => setIsShowKeyboard(true)}
-                value={state.login}
-                onChangeText={(value) =>
-                  setstate((prevState) => ({...prevState, login: value}))
-                }
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Адрес электронной почты "
-                onFocus={() => setIsShowKeyboard(true)}
-                value={state.email}
-                onChangeText={(value) =>
-                  setstate((prevState) => ({...prevState, email: value}))
-                }
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Пароль"
-                onFocus={() => setIsShowKeyboard(true)}
-                secureTextEntry={true}
-                value={state.pass}
-                onChangeText={(value) =>
-                  setstate((prevState) => ({...prevState, pass: value}))
-                }
-              />
-              {/* <View style={styles.btn}> */}
-              <TouchableOpacity
-                style={styles.btn}
-                onPress={keyboardHide}
-                activeOpacity={0.8}
-              >
-                <Text style={styles.btnTitle}>Зарегистрироваться</Text>
-              </TouchableOpacity>
               {/* </View> */}
-              <Text>Уже есть аккаунт? Войти</Text>
-              <View style={styles.indicator}></View>
-            </View>
-            {/* </View> */}
-          </KeyboardAvoidingView>
-          {/* </View> */}
-          <StatusBar style="auto" />
-        </ImageBackground>
-      </View>
-    </TouchableWithoutFeedback>
+            </KeyboardAvoidingView>
+          </View>
+        </TouchableWithoutFeedback>
+      </ImageBackground>
+    </View>
   );
 }
 
@@ -119,20 +145,11 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    // resizeMode: "cover",
+    resizeMode: "cover",
     justifyContent: "flex-end",
-  },
-  plusPic: {
-    // flex: 1,
-    // resizeMode: "cover",
-    justifyContent: "center",
-    alignItems: "center",
-    // zIndex: 5,
   },
 
   formBox: {
-    // flex: 1,
-    position: "relative",
     alignItems: "center",
     borderRadius: 25,
     backgroundColor: "#fff",
@@ -161,8 +178,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  plusPic: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
   title: {
     marginTop: 92,
+    fontFamily: "Roboto-500",
     fontSize: 30,
     fontWeight: "500",
     marginBottom: 33,
@@ -178,6 +201,9 @@ const styles = StyleSheet.create({
     width: "91%",
     height: 50,
   },
+  inputPass: {
+    top: 9,
+  },
   btn: {
     backgroundColor: "#FF6C00",
     height: 51,
@@ -190,6 +216,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   btnTitle: {
+    fontFamily: "Roboto-500",
     color: "#fff",
     fontSize: 18,
   },
@@ -200,14 +227,21 @@ const styles = StyleSheet.create({
     backgroundColor: "#212121",
     marginBottom: 7,
   },
+  input_btn: {
+    position: "absolute",
 
-  // btnPlus: {
-  //   position: "absolute",
-  //   // bottom: -2,
-  //   // bottom: -1,
-  //   top: -2,
-  //   fontSize: 35,
-  //   fontWieght: "100",
-  //   color: "#FF6C00",
-  // },
+    top: 10,
+    right: 16,
+  },
+  input__text: {
+    fontSize: 14,
+    color: "#a1a1a1",
+  },
+  link__text: {
+    textAlign: "center",
+    color: "#1B4371",
+    fontFamily: "Roboto-400",
+    fontSize: 16,
+    lineHeight: 19,
+  },
 });
