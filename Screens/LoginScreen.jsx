@@ -70,6 +70,7 @@ export default function LoginApp() {
                 <Text style={styles.title}>Войти</Text>
 
                 <TextInput
+                  keyboardType="email-address"
                   style={styles.input}
                   placeholder="Адрес электронной почты "
                   onFocus={() => setIsShowKeyboard(true)}
