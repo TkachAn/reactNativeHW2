@@ -80,6 +80,7 @@ export default function RegApp() {
                 </View>
                 <Text style={styles.title}>Регистрация</Text>
                 <TextInput
+                  keyboardType="email-address"
                   style={styles.input}
                   placeholder="Логин"
                   onFocus={() => setIsShowKeyboard(true)}
@@ -89,6 +90,7 @@ export default function RegApp() {
                   }
                 />
                 <TextInput
+                  keyboardType="email-address"
                   style={styles.input}
                   placeholder="Адрес электронной почты "
                   onFocus={() => setIsShowKeyboard(true)}
