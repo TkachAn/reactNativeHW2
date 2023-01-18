@@ -1,9 +1,7 @@
 import React, {useState, useCallback} from "react";
 import {StatusBar} from "expo-status-bar";
 import {useFonts} from "expo-font";
-
 import * as SplashScreen from "expo-splash-screen";
-
 import {
   StyleSheet,
   Text,
@@ -23,16 +21,17 @@ const initialState = {
   email: "",
   pass: "",
 };
-
+console.log("Platform:", Platform.OS);
+console.log("App");
 export default function RegApp() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setstate] = useState(initialState);
   const [isShowPassword, setIsShowPassword] = useState(true);
-  // console.log("Platform:", Platform.OS);
+
   const [fontsLoaded] = useFonts({
-    "Roboto-400": require("./assets/fonts/Roboto/Roboto-Regular.ttf"),
-    "Roboto-500": require("./assets/fonts/Roboto/Roboto-Medium.ttf"),
-    "Roboto-700": require("./assets/fonts/Roboto/Roboto-Bold.ttf"),
+    "Roboto-400": require("../assets/fonts/Roboto/Roboto-Regular.ttf"),
+    "Roboto-500": require("../assets/fonts/Roboto/Roboto-Medium.ttf"),
+    "Roboto-700": require("../assets/fonts/Roboto/Roboto-Bold.ttf"),
   });
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
@@ -56,7 +55,7 @@ export default function RegApp() {
     <View style={styles.container}>
       <ImageBackground
         style={styles.image}
-        source={require("./assets/imgBgReg.png")}
+        source={require("../assets/imgBgReg.png")}
       >
         <StatusBar style="auto" />
         <TouchableWithoutFeedback
@@ -73,12 +72,20 @@ export default function RegApp() {
                     <View>
                       <Image
                         style={styles.plusPic}
-                        source={require("./assets/plusOnly.png")}
+                        source={require("../assets/plusOnly.png")}
                       />
                     </View>
                   </TouchableOpacity>
                 </View>
-                <Text style={styles.title}>Регистрация</Text>
+                <Text
+                  style={{
+                    ...styles.title,
+                    marginBottom: isShowKeyboard ? 10 : 33,
+                    marginTop: isShowKeyboard ? 61 : 92,
+                  }}
+                >
+                  Регистрация
+                </Text>
                 <TextInput
                   keyboardType="email-address"
                   style={styles.input}
@@ -117,22 +124,23 @@ export default function RegApp() {
                     <Text style={styles.input__text}>Показать</Text>
                   </TouchableOpacity>
                 </View>
-
-                {/* <View style={styles.btn}> */}
                 <TouchableOpacity
-                  style={styles.btn}
+                  style={{...styles.btn, marginTop: isShowKeyboard ? 0 : 40}}
                   onPress={keyboardHide}
                   activeOpacity={0.8}
                 >
                   <Text style={styles.btnTitle}>Зарегистрироваться</Text>
                 </TouchableOpacity>
-                {/* </View> */}
                 <TouchableOpacity style={styles.link}>
                   <Text style={styles.link__text}>Уже есть аккаунт? Войти</Text>
                 </TouchableOpacity>
-                <View style={styles.indicator}></View>
+                <View
+                  style={{
+                    ...styles.indicator,
+                    marginTop: isShowKeyboard ? 10 : 46,
+                  }}
+                ></View>
               </View>
-              {/* </View> */}
             </KeyboardAvoidingView>
           </View>
         </TouchableWithoutFeedback>
@@ -186,11 +194,11 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    marginTop: 92,
+    // isShowKeyboard ? (marginTop: 46): (marginTop: 92),
     fontFamily: "Roboto-500",
     fontSize: 30,
     fontWeight: "500",
-    marginBottom: 33,
+    // marginBottom: isShowKeyboard ? 16 : 33,
   },
   input: {
     marginBottom: 16,
@@ -208,7 +216,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     backgroundColor: "#FF6C00",
-    height: 51,
+    height: 50,
     width: "91%",
     borderRadius: 25,
     marginTop: 40,
