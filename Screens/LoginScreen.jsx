@@ -22,7 +22,8 @@ const initialState = {
   email: "",
   pass: "",
 };
-
+console.log("Platform:", Platform.OS);
+console.log("LoginApp");
 export default function LoginApp() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setstate] = useState(initialState);
