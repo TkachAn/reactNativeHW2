@@ -1,11 +1,12 @@
-import React, {useState, useCallback} from "react";
+import React, {useState, useEffect, useCallback} from "react";
 import {StatusBar} from "expo-status-bar";
 import {useFonts} from "expo-font";
 
 import * as SplashScreen from "expo-splash-screen";
-
+import{Cover} from "./Screens/cover"
 import {
   StyleSheet,
+  orientation,
   Text,
   View,
   ImageBackground,
@@ -16,6 +17,7 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   TouchableWithoutFeedback,
+  Dimensions,
 } from "react-native";
 
 const initialState = {
@@ -23,16 +25,40 @@ const initialState = {
   email: "",
   pass: "",
 };
-
+const initialSize = {
+  width: Dimensions.get("window").width,
+  height: Dimensions.get("window").height,
+  orientation: Dimensions.get("window").orientation,
+};
 export default function App() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setstate] = useState(initialState);
   const [isShowPassword, setIsShowPassword] = useState(true);
-  // console.log("Platform:", Platform.OS);
+  const [dimensions, setdimensions] = useState(initialSize);
+  
+  // useEffect(() => {
+  //   const onChange = () => {
+  //     const width = Dimensions.get("window").width;
+
+  //     setdimensions(width);
+  //   };
+  //   Dimensions.addEventListener("change", onChange);
+  //   return () => {
+  //     Dimensions.removeEventListener("change", onChange);
+  //   };
+  // }, []);
+  // console.log("dimensions:", dimensions.height);
+  // console.log("dimensions:", dimensions.width);
+  // console.log("orientation:", orientation);
   const [fontsLoaded] = useFonts({
     "Roboto-400": require("./assets/fonts/Roboto/Roboto-Regular.ttf"),
     "Roboto-500": require("./assets/fonts/Roboto/Roboto-Medium.ttf"),
     "Roboto-700": require("./assets/fonts/Roboto/Roboto-Bold.ttf"),
+    "raleway-900":require("./assets/fonts/Raleway/Raleway-ExtraBold.ttf"),
+    "raleway-700":require("./assets/fonts/Raleway/Raleway-Bold.ttf"),
+    "raleway-500":require("./assets/fonts/Raleway/Raleway-Medium.ttf"),
+    "raleway-400":require("./assets/fonts/Raleway/Raleway-Light.ttf"),
+    "raleway-200":require("./assets/fonts/Raleway/Raleway-ExtraLight.ttf"),
   });
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
@@ -53,20 +79,7 @@ export default function App() {
   };
   const showPassword = () => setIsShowPassword(!isShowPassword);
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        style={styles.image}
-        source={require("./assets/imgBgReg.png")}
-      >
-        <StatusBar style="auto" />
-        <TouchableWithoutFeedback
-          onPress={keyboardHide}
-          onLayout={onLayoutRootView}
-        >
-          <View>
-            <KeyboardAvoidingView
-              behavior={Platform.OS == "ios" ? "padding" : "height"}
-            >
+    <Cover style={styles.container}>
               <View style={styles.formBox}>
                 <View style={styles.picBox}>
                   <TouchableOpacity style={styles.plus} activeOpacity={0.8}>
@@ -80,6 +93,7 @@ export default function App() {
                 </View>
                 <Text style={styles.title}>Регистрация</Text>
                 <TextInput
+                  keyboardType={Platform.OS == "ios" ? "default" : "visible-password"}
                   style={styles.input}
                   placeholder="Логин"
                   onFocus={() => setIsShowKeyboard(true)}
@@ -90,6 +104,7 @@ export default function App() {
                 />
                 <TextInput
                   style={styles.input}
+                  keyboardType="email-address"
                   placeholder="Адрес электронной почты "
                   onFocus={() => setIsShowKeyboard(true)}
                   value={state.email}
@@ -131,11 +146,10 @@ export default function App() {
                 <View style={styles.indicator}></View>
               </View>
               {/* </View> */}
-            </KeyboardAvoidingView>
-          </View>
-        </TouchableWithoutFeedback>
-      </ImageBackground>
-    </View>
+
+
+
+    </Cover>
   );
 }
 
