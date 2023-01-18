@@ -1,5 +1,4 @@
 import React, {useState, useEffect, useCallback} from "react";
-import {StatusBar} from "expo-status-bar";
 import {useFonts} from "expo-font";
 
 import * as SplashScreen from "expo-splash-screen";
@@ -9,14 +8,11 @@ import {
   orientation,
   Text,
   View,
-  ImageBackground,
   Image,
   TextInput,
   TouchableOpacity,
   Platform,
-  KeyboardAvoidingView,
   Keyboard,
-  TouchableWithoutFeedback,
   Dimensions,
 } from "react-native";
 
