@@ -1,19 +1,19 @@
-import React, {useState, useEffect, useCallback} from "react";
+import React, {useState, useCallback} from "react";
+import {StatusBar} from "expo-status-bar";
 import {useFonts} from "expo-font";
-
 import * as SplashScreen from "expo-splash-screen";
-import{Cover} from "./Screens/cover"
 import {
   StyleSheet,
-  orientation,
   Text,
   View,
+  ImageBackground,
   Image,
   TextInput,
   TouchableOpacity,
   Platform,
+  KeyboardAvoidingView,
   Keyboard,
-  Dimensions,
+  TouchableWithoutFeedback,
 } from "react-native";
 
 const initialState = {
@@ -21,40 +21,17 @@ const initialState = {
   email: "",
   pass: "",
 };
-const initialSize = {
-  width: Dimensions.get("window").width,
-  height: Dimensions.get("window").height,
-  orientation: Dimensions.get("window").orientation,
-};
-export default function App() {
+console.log("Platform:", Platform.OS);
+console.log("App");
+export default function RegApp() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setstate] = useState(initialState);
   const [isShowPassword, setIsShowPassword] = useState(true);
-  const [dimensions, setdimensions] = useState(initialSize);
-  
-  // useEffect(() => {
-  //   const onChange = () => {
-  //     const width = Dimensions.get("window").width;
 
-  //     setdimensions(width);
-  //   };
-  //   Dimensions.addEventListener("change", onChange);
-  //   return () => {
-  //     Dimensions.removeEventListener("change", onChange);
-  //   };
-  // }, []);
-  // console.log("dimensions:", dimensions.height);
-  // console.log("dimensions:", dimensions.width);
-  // console.log("orientation:", orientation);
   const [fontsLoaded] = useFonts({
     "Roboto-400": require("./assets/fonts/Roboto/Roboto-Regular.ttf"),
     "Roboto-500": require("./assets/fonts/Roboto/Roboto-Medium.ttf"),
     "Roboto-700": require("./assets/fonts/Roboto/Roboto-Bold.ttf"),
-    "raleway-900":require("./assets/fonts/Raleway/Raleway-ExtraBold.ttf"),
-    "raleway-700":require("./assets/fonts/Raleway/Raleway-Bold.ttf"),
-    "raleway-500":require("./assets/fonts/Raleway/Raleway-Medium.ttf"),
-    "raleway-400":require("./assets/fonts/Raleway/Raleway-Light.ttf"),
-    "raleway-200":require("./assets/fonts/Raleway/Raleway-ExtraLight.ttf"),
   });
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
@@ -75,7 +52,20 @@ export default function App() {
   };
   const showPassword = () => setIsShowPassword(!isShowPassword);
   return (
-    <Cover style={styles.container}>
+    <View style={styles.container}>
+      <ImageBackground
+        style={styles.image}
+        source={require("./assets/imgBgReg.png")}
+      >
+        <StatusBar style="auto" />
+        <TouchableWithoutFeedback
+          onPress={keyboardHide}
+          onLayout={onLayoutRootView}
+        >
+          <View>
+            <KeyboardAvoidingView
+              behavior={Platform.OS == "ios" ? "padding" : "height"}
+            >
               <View style={styles.formBox}>
                 <View style={styles.picBox}>
                   <TouchableOpacity style={styles.plus} activeOpacity={0.8}>
@@ -87,9 +77,17 @@ export default function App() {
                     </View>
                   </TouchableOpacity>
                 </View>
-                <Text style={styles.title}>Регистрация</Text>
+                <Text
+                  style={{
+                    ...styles.title,
+                    marginBottom: isShowKeyboard ? 10 : 33,
+                    marginTop: isShowKeyboard ? 61 : 92,
+                  }}
+                >
+                  Регистрация
+                </Text>
                 <TextInput
-                  keyboardType={Platform.OS == "ios" ? "default" : "visible-password"}
+                  keyboardType="email-address"
                   style={styles.input}
                   placeholder="Логин"
                   onFocus={() => setIsShowKeyboard(true)}
@@ -99,8 +97,8 @@ export default function App() {
                   }
                 />
                 <TextInput
-                  style={styles.input}
                   keyboardType="email-address"
+                  style={styles.input}
                   placeholder="Адрес электронной почты "
                   onFocus={() => setIsShowKeyboard(true)}
                   value={state.email}
@@ -126,26 +124,28 @@ export default function App() {
                     <Text style={styles.input__text}>Показать</Text>
                   </TouchableOpacity>
                 </View>
-
-                {/* <View style={styles.btn}> */}
                 <TouchableOpacity
-                  style={styles.btn}
+                  style={{...styles.btn, marginTop: isShowKeyboard ? 0 : 40}}
                   onPress={keyboardHide}
                   activeOpacity={0.8}
                 >
                   <Text style={styles.btnTitle}>Зарегистрироваться</Text>
                 </TouchableOpacity>
-                {/* </View> */}
                 <TouchableOpacity style={styles.link}>
                   <Text style={styles.link__text}>Уже есть аккаунт? Войти</Text>
                 </TouchableOpacity>
-                <View style={styles.indicator}></View>
+                <View
+                  style={{
+                    ...styles.indicator,
+                    marginTop: isShowKeyboard ? 10 : 46,
+                  }}
+                ></View>
               </View>
-              {/* </View> */}
-
-
-
-    </Cover>
+            </KeyboardAvoidingView>
+          </View>
+        </TouchableWithoutFeedback>
+      </ImageBackground>
+    </View>
   );
 }
 
@@ -158,7 +158,6 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     justifyContent: "flex-end",
   },
-
   formBox: {
     alignItems: "center",
     borderRadius: 25,
@@ -192,7 +191,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-
   title: {
     marginTop: 92,
     fontFamily: "Roboto-500",
@@ -216,7 +214,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     backgroundColor: "#FF6C00",
-    height: 51,
+    height: 50,
     width: "91%",
     borderRadius: 25,
     marginTop: 40,
