@@ -21,27 +21,11 @@ const initialState = {
   email: "",
   pass: "",
 };
-console.log("Platform:", Platform.OS);
 console.log("RegistrationScreen");
 export default function RegScreen() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setstate] = useState(initialState);
   const [isShowPassword, setIsShowPassword] = useState(true);
-
-  // const [fontsLoaded] = useFonts({
-  //   "Roboto-400": require("../assets/fonts/Roboto/Roboto-Regular.ttf"),
-  //   "Roboto-500": require("../assets/fonts/Roboto/Roboto-Medium.ttf"),
-  //   "Roboto-700": require("../assets/fonts/Roboto/Roboto-Bold.ttf"),
-  // });
-  // const onLayoutRootView = useCallback(async () => {
-  //   if (fontsLoaded) {
-  //     await SplashScreen.hideAsync();
-  //   }
-  // }, [fontsLoaded]);
-
-  // if (!fontsLoaded) {
-  //   return null;
-  // }
 
   const keyboardHide = () => {
     Keyboard.dismiss();
