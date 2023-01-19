@@ -18,11 +18,12 @@ const initialState = {
   pass: "",
 };
 console.log("LoginScreen");
-export default function LoginApp() {
+export default function LoginScreen({navigation, route}) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setstate] = useState(initialState);
   const [isShowPassword, setIsShowPassword] = useState(true);
-
+  const {userId} = route.params;
+  console.log("userId", userId);
   const keyboardHide = () => {
     Keyboard.dismiss();
     setstate(initialState);
@@ -52,7 +53,7 @@ export default function LoginApp() {
                     marginTop: isShowKeyboard ? 10 : 32,
                   }}
                 >
-                  Войти
+                  Войти {userId}
                 </Text>
 
                 <TextInput
@@ -90,7 +91,10 @@ export default function LoginApp() {
                 >
                   <Text style={styles.btnTitle}>Войти</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.link}>
+                <TouchableOpacity
+                  style={styles.link}
+                  onPress={() => navigation.navigate("Registration")}
+                >
                   <Text style={styles.link__text}>
                     Нет аккаунта? Зарегистрироваться
                   </Text>
