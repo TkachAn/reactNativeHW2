@@ -22,7 +22,7 @@ const initialState = {
   pass: "",
 };
 console.log("RegistrationScreen");
-export default function RegScreen() {
+export default function RegScreen({navigation}) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setstate] = useState(initialState);
   const [isShowPassword, setIsShowPassword] = useState(true);
@@ -113,7 +113,15 @@ export default function RegScreen() {
                 >
                   <Text style={styles.btnTitle}>Зарегистрироваться</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.link}>
+                <TouchableOpacity
+                  style={styles.link}
+                  onPress={() =>
+                    navigation.navigate("Login", {
+                      sessionId: 45,
+                      userId: "к Васе",
+                    })
+                  }
+                >
                   <Text style={styles.link__text}>Уже есть аккаунт? Войти</Text>
                 </TouchableOpacity>
                 <View
