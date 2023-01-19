@@ -1,12 +1,18 @@
 import React, {useState, useCallback} from "react";
 import {useFonts} from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import {StyleSheet, View} from "react-native";
+import {Dimensions, StyleSheet, View} from "react-native";
 import RegScreen from "./Screens/RegistrationScreen";
 import LoginScreen from "./Screens/LoginScreen";
 //
+const widthScreen = Dimensions.get("window").width;
+const heightScreen = Dimensions.get("window").height;
+//
 console.log("Platform:", Platform.OS);
+console.log("width screen:", widthScreen);
+console.log("height screen:", heightScreen);
 console.log("App");
+
 //
 export default function App() {
   const [fontsLoaded] = useFonts({
