@@ -1,23 +1,19 @@
 import React from "react";
 import {StatusBar} from "expo-status-bar";
 import {useFonts} from "expo-font";
-import {
-  StyleSheet,
-  View,
-  ImageBackground,
-} from "react-native";
+import {StyleSheet, View, ImageBackground} from "react-native";
 
 export default function Cover(props) {
-  const [fontsLoaded] = useFonts({
-    "Roboto-400": require("../assets/fonts/Roboto/Roboto-Regular.ttf"),
-    "Roboto-500": require("../assets/fonts/Roboto/Roboto-Medium.ttf"),
-    "Roboto-700": require("../assets/fonts/Roboto/Roboto-Bold.ttf"),
-    "raleway-900": require("../assets/fonts/Raleway/Raleway-ExtraBold.ttf"),
-    "raleway-700": require("../assets/fonts/Raleway/Raleway-Bold.ttf"),
-    "raleway-500": require("../assets/fonts/Raleway/Raleway-Medium.ttf"),
-    "raleway-400": require("../assets/fonts/Raleway/Raleway-Light.ttf"),
-    "raleway-200": require("../assets/fonts/Raleway/Raleway-ExtraLight.ttf"),
-  });
+  // const [fontsLoaded] = useFonts({
+  //   "Roboto-400": require("../assets/fonts/Roboto/Roboto-Regular.ttf"),
+  //   "Roboto-500": require("../assets/fonts/Roboto/Roboto-Medium.ttf"),
+  //   "Roboto-700": require("../assets/fonts/Roboto/Roboto-Bold.ttf"),
+  //   "raleway-900": require("../assets/fonts/Raleway/Raleway-ExtraBold.ttf"),
+  //   "raleway-700": require("../assets/fonts/Raleway/Raleway-Bold.ttf"),
+  //   "raleway-500": require("../assets/fonts/Raleway/Raleway-Medium.ttf"),
+  //   "raleway-400": require("../assets/fonts/Raleway/Raleway-Light.ttf"),
+  //   "raleway-200": require("../assets/fonts/Raleway/Raleway-ExtraLight.ttf"),
+  // });
   // const onLayoutRootView = useCallback(async () => {
   //   if (fontsLoaded) {
   //     await SplashScreen.hideAsync();
