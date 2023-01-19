@@ -1,15 +1,12 @@
 import React, {useState, useCallback} from "react";
 import {StatusBar} from "expo-status-bar";
 import {useFonts} from "expo-font";
-
 import * as SplashScreen from "expo-splash-screen";
-
 import {
   StyleSheet,
   Text,
   View,
   ImageBackground,
-  Image,
   TextInput,
   TouchableOpacity,
   Platform,
@@ -23,16 +20,15 @@ const initialState = {
   pass: "",
 };
 console.log("Platform:", Platform.OS);
-console.log("LoginApp");
+console.log("LoginScreen");
 export default function LoginApp() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setstate] = useState(initialState);
   const [isShowPassword, setIsShowPassword] = useState(true);
-  // console.log("Platform:", Platform.OS);
   const [fontsLoaded] = useFonts({
-    "Roboto-400": require("./assets/fonts/Roboto/Roboto-Regular.ttf"),
-    "Roboto-500": require("./assets/fonts/Roboto/Roboto-Medium.ttf"),
-    "Roboto-700": require("./assets/fonts/Roboto/Roboto-Bold.ttf"),
+    "Roboto-400": require("../assets/fonts/Roboto/Roboto-Regular.ttf"),
+    "Roboto-500": require("../assets/fonts/Roboto/Roboto-Medium.ttf"),
+    "Roboto-700": require("../assets/fonts/Roboto/Roboto-Bold.ttf"),
   });
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
@@ -54,15 +50,16 @@ export default function LoginApp() {
   const showPassword = () => setIsShowPassword(!isShowPassword);
   return (
     <View style={styles.container}>
-      <ImageBackground
-        style={styles.image}
-        source={require("../assets/imgBgReg.png")}
+      <TouchableWithoutFeedback
+        onPress={keyboardHide}
+        onLayout={onLayoutRootView}
       >
-        <StatusBar style="auto" />
-        <TouchableWithoutFeedback
-          onPress={keyboardHide}
-          onLayout={onLayoutRootView}
+        <ImageBackground
+          style={styles.image}
+          source={require("../assets/imgBgReg.png")}
         >
+          <StatusBar style="auto" />
+
           <View>
             <KeyboardAvoidingView
               behavior={Platform.OS == "ios" ? "padding" : "height"}
@@ -72,7 +69,7 @@ export default function LoginApp() {
                   style={{
                     ...styles.title,
                     marginBottom: isShowKeyboard ? 10 : 33,
-                    marginTop: isShowKeyboard ? 62 : 92,
+                    marginTop: isShowKeyboard ? 10 : 32,
                   }}
                 >
                   Войти
@@ -127,8 +124,8 @@ export default function LoginApp() {
               </View>
             </KeyboardAvoidingView>
           </View>
-        </TouchableWithoutFeedback>
-      </ImageBackground>
+        </ImageBackground>
+      </TouchableWithoutFeedback>
     </View>
   );
 }
