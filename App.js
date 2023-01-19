@@ -1,12 +1,19 @@
 import React, {useState, useCallback} from "react";
+import {Dimensions, StyleSheet, View} from "react-native";
+import {NavigationContainer} from "@react-navigation/native";
+import {createStackNavigator} from "@react-navigation/stack";
+//
 import {useFonts} from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import {Dimensions, StyleSheet, View} from "react-native";
+//
 import RegScreen from "./Screens/RegistrationScreen";
 import LoginScreen from "./Screens/LoginScreen";
+import Home from "./Screens/Home";
+//
 //
 const widthScreen = Dimensions.get("window").width;
 const heightScreen = Dimensions.get("window").height;
+const MainStack = createStackNavigator();
 //
 console.log("Platform:", Platform.OS);
 console.log("width screen:", widthScreen);
@@ -33,8 +40,13 @@ export default function App() {
   // const [user, setUser] = useState(null);
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
-      {/* <LoginScreen /> */}
-      <RegScreen />
+      <NavigationContainer>
+        <MainStack.Navigator initialRouteName="Login">
+          <MainStack.Screen name="Registration" component={RegScreen} />
+          <MainStack.Screen name="Login" component={LoginScreen} />
+          <MainStack.Screen name="Home" component={Home} />
+        </MainStack.Navigator>
+      </NavigationContainer>
     </View>
   );
 }
