@@ -26,7 +26,8 @@ export default function App() {
   }
   // const [user, setUser] = useState(null);
   return (
-    <View style={styles.container}>
+    <View style={styles.container} onLayout={onLayoutRootView}>
+      {/* <LoginScreen /> */}
       <RegScreen />
     </View>
   );
