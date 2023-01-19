@@ -22,7 +22,7 @@ const initialState = {
   pass: "",
 };
 console.log("Platform:", Platform.OS);
-console.log("App");
+console.log("RegistrationScreen");
 export default function RegApp() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setstate] = useState(initialState);
@@ -53,15 +53,16 @@ export default function RegApp() {
   const showPassword = () => setIsShowPassword(!isShowPassword);
   return (
     <View style={styles.container}>
-      <ImageBackground
-        style={styles.image}
-        source={require("../assets/imgBgReg.png")}
+      <TouchableWithoutFeedback
+        onPress={keyboardHide}
+        onLayout={onLayoutRootView}
       >
-        <StatusBar style="auto" />
-        <TouchableWithoutFeedback
-          onPress={keyboardHide}
-          onLayout={onLayoutRootView}
+        <ImageBackground
+          style={styles.image}
+          source={require("../assets/imgBgReg.png")}
         >
+          <StatusBar style="auto" />
+
           <View>
             <KeyboardAvoidingView
               behavior={Platform.OS == "ios" ? "padding" : "height"}
@@ -81,7 +82,7 @@ export default function RegApp() {
                   style={{
                     ...styles.title,
                     marginBottom: isShowKeyboard ? 10 : 33,
-                    marginTop: isShowKeyboard ? 61 : 92,
+                    marginTop: isShowKeyboard ? 62 : 92,
                   }}
                 >
                   Регистрация
@@ -143,8 +144,8 @@ export default function RegApp() {
               </View>
             </KeyboardAvoidingView>
           </View>
-        </TouchableWithoutFeedback>
-      </ImageBackground>
+        </ImageBackground>
+      </TouchableWithoutFeedback>
     </View>
   );
 }
@@ -194,11 +195,9 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    // isShowKeyboard ? (marginTop: 46): (marginTop: 92),
     fontFamily: "Roboto-500",
     fontSize: 30,
     fontWeight: "500",
-    // marginBottom: isShowKeyboard ? 16 : 33,
   },
   input: {
     marginBottom: 16,
