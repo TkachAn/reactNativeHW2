@@ -56,7 +56,7 @@ export default function LoginApp() {
     <View style={styles.container}>
       <ImageBackground
         style={styles.image}
-        source={require("./assets/imgBgReg.png")}
+        source={require("../assets/imgBgReg.png")}
       >
         <StatusBar style="auto" />
         <TouchableWithoutFeedback
@@ -68,7 +68,15 @@ export default function LoginApp() {
               behavior={Platform.OS == "ios" ? "padding" : "height"}
             >
               <View style={styles.formBox}>
-                <Text style={styles.title}>Войти</Text>
+                <Text
+                  style={{
+                    ...styles.title,
+                    marginBottom: isShowKeyboard ? 10 : 33,
+                    marginTop: isShowKeyboard ? 62 : 92,
+                  }}
+                >
+                  Войти
+                </Text>
 
                 <TextInput
                   keyboardType="email-address"
@@ -98,24 +106,25 @@ export default function LoginApp() {
                     <Text style={styles.input__text}>Показать</Text>
                   </TouchableOpacity>
                 </View>
-
-                {/* <View style={styles.btn}> */}
                 <TouchableOpacity
-                  style={styles.btn}
+                  style={{...styles.btn, marginTop: isShowKeyboard ? 0 : 40}}
                   onPress={keyboardHide}
                   activeOpacity={0.8}
                 >
-                  <Text style={styles.btnTitle}>Зарегистрироваться</Text>
+                  <Text style={styles.btnTitle}>Войти</Text>
                 </TouchableOpacity>
-                {/* </View> */}
                 <TouchableOpacity style={styles.link}>
                   <Text style={styles.link__text}>
                     Нет аккаунта? Зарегистрироваться
                   </Text>
                 </TouchableOpacity>
-                <View style={styles.indicator}></View>
+                <View
+                  style={{
+                    ...styles.indicator,
+                    marginTop: isShowKeyboard ? 10 : 46,
+                  }}
+                ></View>
               </View>
-              {/* </View> */}
             </KeyboardAvoidingView>
           </View>
         </TouchableWithoutFeedback>
