@@ -2,7 +2,8 @@ import React, {useState} from "react";
 import {View, Text, StyleSheet, SafeAreaView, FlatList} from "react-native";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {Ionicons} from "@expo/vector-icons";
-
+import Profile from "../Screens/Profile";
+import CreatePosts from "../Screens/CreatePosts";
 const COURSES = [
   {
     id: "45k6-j54k-4jth",
@@ -38,13 +39,13 @@ function Settings() {
   );
 }
 
-function Profile() {
-  return (
-    <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-      <Text>Profile!</Text>
-    </View>
-  );
-}
+// function Profile() {
+//   return (
+//     <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+//       <Text>Profile!</Text>
+//     </View>
+//   );
+// }
 
 const Tabs = createBottomTabNavigator();
 console.log("HomeScreen");
@@ -72,6 +73,7 @@ const Home = () => {
     >
       <Tabs.Screen name="Settings" component={Settings} />
       <Tabs.Screen name="Profile" component={Profile} />
+      <Tabs.Screen name="Create Posts" component={CreatePosts} />
     </Tabs.Navigator>
   );
 };
