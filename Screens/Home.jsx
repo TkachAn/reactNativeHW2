@@ -1,12 +1,39 @@
-import React from "react";
-import {View, Text, StyleSheet} from "react-native";
+import React, {useState} from "react";
+import {View, Text, StyleSheet, SafeAreaView, FlatList} from "react-native";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {Ionicons} from "@expo/vector-icons";
 
+const COURSES = [
+  {
+    id: "45k6-j54k-4jth",
+    title: "HTML",
+  },
+  {
+    id: "4116-jfk5-43rh",
+    title: "JavaScript",
+  },
+  {
+    id: "4d16-5tt5-4j55",
+    title: "React",
+  },
+  {
+    id: "LG16-ant5-0J25",
+    title: "React Native",
+  },
+];
+
 function Settings() {
+  const [courses, setCourses] = useState(COURSES);
   return (
     <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
       <Text>Settings!</Text>
+      <SafeAreaView style={styles.container}>
+        <FlatList
+          data={courses}
+          renderItem={({item}) => <Text>{item.title}</Text>}
+          keyExtractor={(item) => item.id}
+        />
+      </SafeAreaView>
     </View>
   );
 }
