@@ -41,7 +41,7 @@ export default function App() {
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
       <NavigationContainer>
-        <MainStack.Navigator initialRouteName="Login">
+        <MainStack.Navigator initialRouteName="Home">
           <MainStack.Screen name="Registration" component={RegScreen} />
           <MainStack.Screen name="Login" component={LoginScreen} />
           <MainStack.Screen name="Home" component={Home} />
