@@ -8,6 +8,11 @@ import * as SplashScreen from "expo-splash-screen";
 //
 import RegScreen from "./Screens/RegistrationScreen";
 import LoginScreen from "./Screens/LoginScreen";
+import Posts from "./Screens/Posts";
+import CreatePosts from "./Screens/CreatePosts";
+import Comments from "./Screens/Comments";
+import Map from "./Screens/Map";
+import Profile from "./Screens/Profile";
 import Home from "./Screens/Home";
 //
 //
@@ -45,6 +50,11 @@ export default function App() {
           <MainStack.Screen name="Registration" component={RegScreen} />
           <MainStack.Screen name="Login" component={LoginScreen} />
           <MainStack.Screen name="Home" component={Home} />
+          <MainStack.Screen name="Posts" component={Posts} />
+          <MainStack.Screen name="Create Post" component={CreatePosts} />
+          <MainStack.Screen name="Comments" component={Comments} />
+          <MainStack.Screen name="Maps" component={Map} />
+          <MainStack.Screen name="Profile" component={Profile} />
         </MainStack.Navigator>
       </NavigationContainer>
     </View>
