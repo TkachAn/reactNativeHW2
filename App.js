@@ -1,30 +1,19 @@
 import React, {useState, useCallback} from "react";
-import {Dimensions, StyleSheet, View} from "react-native";
+import {Dimensions} from "react-native";
 import {NavigationContainer} from "@react-navigation/native";
-import {createStackNavigator} from "@react-navigation/stack";
 //
 import {useFonts} from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 //
-import RegScreen from "./Screens/RegistrationScreen";
-import LoginScreen from "./Screens/LoginScreen";
-import Posts from "./Screens/Posts";
-import CreatePosts from "./Screens/CreatePosts";
-import Comments from "./Screens/Comments";
-import Map from "./Screens/Map";
-import Profile from "./Screens/Profile";
-import Home from "./Screens/Home";
-//
+import Authorization from "./Screens/auth";
 //
 const widthScreen = Dimensions.get("window").width;
 const heightScreen = Dimensions.get("window").height;
-const MainStack = createStackNavigator();
 //
 console.log("Platform:", Platform.OS);
 console.log("width screen:", widthScreen);
 console.log("height screen:", heightScreen);
 console.log("App");
-
 //
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -43,10 +32,25 @@ export default function App() {
     return null;
   }
   // const [user, setUser] = useState(null);
+  const auth = Authorization(1);
   return (
-    <View style={styles.container} onLayout={onLayoutRootView}>
-      <NavigationContainer>
+    <NavigationContainer onLayout={onLayoutRootView}>
+      {auth}
+    </NavigationContainer>
+  );
+}
+{
+  // import RegScreen from "./Screens/Registration";
+  // import LoginScreen from "./Screens/Login";
+  // import Posts from "./Screens/Posts";
+  // import CreatePosts from "./Screens/CreatePosts";
+  // import Comments from "./Screens/Comments";
+  // import Map from "./Screens/Map";
+  // import Profile from "./Screens/Profile";
+  // import Home from "./Screens/Home";
+  /* <NavigationContainer onLayout={onLayoutRootView}>
         <MainStack.Navigator initialRouteName="Home">
+          <MainStack.Screen name="Authorization" component={Authorization} />
           <MainStack.Screen name="Registration" component={RegScreen} />
           <MainStack.Screen name="Login" component={LoginScreen} />
           <MainStack.Screen name="Home" component={Home} />
@@ -56,12 +60,5 @@ export default function App() {
           <MainStack.Screen name="Maps" component={Map} />
           <MainStack.Screen name="Profile" component={Profile} />
         </MainStack.Navigator>
-      </NavigationContainer>
-    </View>
-  );
+      </NavigationContainer> */
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
