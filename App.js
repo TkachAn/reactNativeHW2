@@ -1,12 +1,13 @@
-import React, {useState, useCallback} from "react";
-import {Dimensions} from "react-native";
-import {NavigationContainer} from "@react-navigation/native";
+import React, { useState, useCallback } from "react";
+import { Dimensions } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
 //
-import {useFonts} from "expo-font";
+import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 //
-import Authorization from "./Screens/auth";
+import { useRoute } from "./routing";
 //
+import LoginScreen from "./screens/auth/login";
 const widthScreen = Dimensions.get("window").width;
 const heightScreen = Dimensions.get("window").height;
 //
@@ -31,11 +32,11 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
-  // const [user, setUser] = useState(null);
-  const auth = Authorization(1);
+
+  const routing = useRoute(1);
   return (
     <NavigationContainer onLayout={onLayoutRootView}>
-      {auth}
+      {routing}
     </NavigationContainer>
   );
 }
