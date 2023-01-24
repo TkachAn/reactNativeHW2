@@ -1,6 +1,31 @@
-import React from "react";
-import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
-const CreatePost = () => {
+import React, {useEffect, useState} from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  Platform,
+  KeyboardAvoidingView,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from "react-native";
+import {Feather} from "@expo/vector-icons";
+import {AntDesign} from "@expo/vector-icons";
+import {FontAwesome} from "@expo/vector-icons";
+const initialPost = {
+  photo: "",
+  title: "",
+  photoLocation: "",
+  currentLocation: "",
+};
+const CreatePosts = () => {
+  const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+  const [shouldPublish, setShouldPublish] = useState(false);
+  const [post, setPost] = useState(initialPost);
+  const [errorMsg, setErrorMsg] = useState(null);
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -15,49 +40,14 @@ const CreatePost = () => {
           }}
         >
           <View style={styles.photoContainer}>
-            <View style={styles.container}>
-              {post.photo ? (
-                <Image
-                  source={{uri: post.photo}}
-                  style={{height: "100%", width: "100%", borderRadius: 8}}
-                />
-              ) : (
-                {
-                  /* <Camera
-                  style={styles.camera}
-                  type={CameraType.back}
-                  ref={(ref) => {
-                    setCameraRef(ref);
-                  }}
-                  autoFocus={Camera.Constants.AutoFocus.on}
-                >
-                  <View style={styles.photoView}>
-                    <TouchableOpacity
-                      style={styles.button}
-                      onPress={async () => {
-                        if (cameraRef) {
-                          const {uri} = await cameraRef.takePictureAsync();
-                          photoHandler(uri);
-                          await MediaLibrary.createAssetAsync(uri);
-                        }
-                      }}
-                    >
-                      <View style={styles.takePhotoOut}>
-                        <FontAwesome name="camera" size={24} color="gray" />
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                </Camera> */
-                }
-              )}
-            </View>
+            <View style={styles.container}></View>
+            <Text>image</Text>
           </View>
           <View style={styles.loadPhoto}>
-            <TouchableOpacity>
-              {/* <TouchableOpacity onPress={onRemovePhoto}> */}
-              <Text style={styles.loadPhoto_text}>
-                {post.photo ? "Редактировать фото" : "Загрузите фото"}
-              </Text>
+            <TouchableOpacity
+            // onPress={onRemovePhoto}
+            >
+              <Text>"Загрузите фото"</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.inputContainer}>
@@ -70,6 +60,7 @@ const CreatePost = () => {
               // onFocus={onFocusKeyboard}
               // onBlur={() => setIsShowKeyboard(false)}
             />
+
             <View>
               <Feather
                 name="map-pin"
@@ -77,16 +68,16 @@ const CreatePost = () => {
                 color="#BDBDBD"
                 style={{position: "absolute"}}
               />
-              <TextInput
-                value={post.photoLocation}
-                // onChangeText={inputHandlerLocation}
-                placeholder={"Местность..."}
-                placeholderTextColor={"#BDBDBD"}
-                style={{...styles.input, paddingLeft: 28}}
-                // onFocus={onFocusKeyboard}
-                // onBlur={() => setIsShowKeyboard(false)}
-              />
             </View>
+            <TextInput
+              value={post.photoLocation}
+              // onChangeText={inputHandlerLocation}
+              placeholder={"Местность..."}
+              placeholderTextColor={"#BDBDBD"}
+              style={{...styles.input, paddingLeft: 28}}
+              // onFocus={onFocusKeyboard}
+              // onBlur={() => setIsShowKeyboard(false)}
+            />
           </View>
           <TouchableOpacity
             style={
@@ -106,7 +97,6 @@ const CreatePost = () => {
               Опубликовать
             </Text>
           </TouchableOpacity>
-
           <View
             style={{
               flex: 1,
@@ -134,24 +124,44 @@ const CreatePost = () => {
         </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
-    // <View style={styles.container}>
-    //   <View style={styles.img}>
-    //     <Text>image Screen</Text>
-    //   </View>
-    //   <View style={styles.title}>
-    //     <Text>title Screen</Text>
-    //   </View>
-    //   <View style={styles.title}>
-    //     <Text>map Screen</Text>
-    //   </View>
-    //   <TouchableOpacity style={styles.btn} activeOpacity={0.8}>
-    //     <Text style={styles.btnTitle}>Создать</Text>
-    //   </TouchableOpacity>
-    // </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+    alignItems: "center",
+  },
+  img: {
+    width: 320,
+    height: 240,
+    borderWidth: 1,
+    borderColor: "#888",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  title: {
+    width: "80%",
+    // alignItems: "center",
+    justifyContent: "center",
+  },
+  btn: {
+    backgroundColor: "#FF6C00",
+    height: 50,
+    width: "91%",
+    borderRadius: 25,
+    marginTop: 40,
+    marginBottom: 16,
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 20,
+  },
+  btnTitle: {
+    fontFamily: "Roboto-500",
+    color: "#fff",
+    fontSize: 18,
+  },
   container: {
     flex: 1,
   },
@@ -226,4 +236,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreatePost;
+export default CreatePosts;
