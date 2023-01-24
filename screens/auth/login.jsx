@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from "react";
-import { StatusBar } from "expo-status-bar";
+import React, {useState, useCallback} from "react";
+import {StatusBar} from "expo-status-bar";
 import {
   StyleSheet,
   Text,
@@ -18,7 +18,7 @@ const initialState = {
   pass: "",
 };
 console.log("LoginScreen");
-export default function LoginScreen({ navigation }) {
+export default function LoginScreen({navigation}) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setstate] = useState(initialState);
   const [isShowPassword, setIsShowPassword] = useState(true);
@@ -63,7 +63,7 @@ export default function LoginScreen({ navigation }) {
                   onFocus={() => setIsShowKeyboard(true)}
                   value={state.email}
                   onChangeText={(value) =>
-                    setstate((prevState) => ({ ...prevState, email: value }))
+                    setstate((prevState) => ({...prevState, email: value}))
                   }
                 />
                 <View style={styles.input}>
@@ -74,7 +74,7 @@ export default function LoginScreen({ navigation }) {
                     secureTextEntry={isShowPassword}
                     value={state.pass}
                     onChangeText={(value) =>
-                      setstate((prevState) => ({ ...prevState, pass: value }))
+                      setstate((prevState) => ({...prevState, pass: value}))
                     }
                   />
                   <TouchableOpacity
@@ -85,7 +85,7 @@ export default function LoginScreen({ navigation }) {
                   </TouchableOpacity>
                 </View>
                 <TouchableOpacity
-                  style={{ ...styles.btn, marginTop: isShowKeyboard ? 0 : 40 }}
+                  style={{...styles.btn, marginTop: isShowKeyboard ? 0 : 40}}
                   onPress={keyboardHide}
                   activeOpacity={0.8}
                 >
@@ -93,7 +93,7 @@ export default function LoginScreen({ navigation }) {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.link}
-                  onPress={() => navigation.navigate("RegScreen")}
+                  onPress={() => navigation.navigate("RegisterScreen")}
                 >
                   <Text style={styles.link__text}>
                     Нет аккаунта? Зарегистрироваться
