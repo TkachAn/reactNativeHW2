@@ -1,26 +1,13 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  ImageBackground,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  Platform,
-  KeyboardAvoidingView,
-  Keyboard,
-  TouchableWithoutFeedback,
-} from "react-native";
-import Authorization from "../../auth/auth";
-const Posts = () => {
+import {StyleSheet, Text, View, Image} from "react-native";
+const PostsScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.userBox}>
         <View style={styles.userPic}>
           <Image
-            source={require("../assets/adaptive-icon.png")}
-            style={{ width: 60, height: 60 }}
+            source={require("../../../assets/adaptive-icon.png")}
+            style={{width: 60, height: 60}}
           />
         </View>
         <View style={styles.userText}>
@@ -28,10 +15,10 @@ const Posts = () => {
           <Text style={styles.userEmail}>email@example.com</Text>
         </View>
       </View>
-      <View style={styles.cont}>
+      {/* <View style={styles.cont}>
         <Text>Posts Screen!</Text>
         <Text>Posts Screen!</Text>
-      </View>
+      </View> */}
     </View>
   );
 };
@@ -87,4 +74,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Posts;
+export default PostsScreen;
