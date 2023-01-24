@@ -1,31 +1,33 @@
 import React from "react";
+import {StyleSheet, View} from "react-native";
 import {createStackNavigator} from "@react-navigation/stack";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import {MaterialCommunityIcons, Feather} from "@expo/vector-icons";
+//
+import {Feather} from "@expo/vector-icons";
 import {AntDesign} from "@expo/vector-icons";
-
+//
 import LoginScreen from "./screens/auth/login";
 import RegisterScreen from "./screens/auth/regist";
 import PostsScreen from "./screens/main/posts/Posts";
-import CreateScreen from "./screens/main/createPost/CreatePosts";
+import CreatePost from "./screens/main/createPost/CreatePosts";
 import ProfileScreen from "./screens/main/profile/Profile";
-
+//
 const AuthStack = createStackNavigator();
 const MainTab = createBottomTabNavigator();
-
+//
 export const useRoute = (isAuth) => {
   if (!isAuth) {
     return (
       <AuthStack.Navigator>
         <AuthStack.Screen
-          name="Login"
+          name="LoginScreen"
           component={LoginScreen}
           options={{
             headerShown: false,
           }}
         />
         <AuthStack.Screen
-          name="Register"
+          name="RegisterScreen"
           component={RegisterScreen}
           options={{
             headerShown: false,
@@ -41,21 +43,26 @@ export const useRoute = (isAuth) => {
         component={PostsScreen}
         options={{
           tabBarIcon: ({focused, size, color}) => (
-            <MaterialCommunityIcons
-              name="postage-stamp"
-              size={size}
-              color={color}
-            />
+            <Feather name="grid" size={size} color={color} />
           ),
+          title: "Публикации",
         }}
       />
       <MainTab.Screen
         name="Create"
-        component={CreateScreen}
+        component={CreatePost}
         options={{
-          tabBarIcon: ({focused, size, color}) => (
-            <AntDesign name="pluscircleo" size={35} color={color} />
-          ),
+          tabBarIcon: ({size}) => {
+            return (
+              <View style={styles.create}>
+                <Feather name={"plus"} size={size} color={"#fff"} />
+              </View>
+            );
+          },
+          title: "Создать публикацию",
+          // tabBarStyle: {
+          //   display: "none",
+          // },
         }}
       />
       <MainTab.Screen
@@ -65,8 +72,25 @@ export const useRoute = (isAuth) => {
           tabBarIcon: ({focused, size, color}) => (
             <Feather name="user" size={size} color={color} />
           ),
+          headerShown: false,
         }}
       />
     </MainTab.Navigator>
   );
 };
+const styles = StyleSheet.create({
+  headerTitle: {
+    fontWeight: "bold",
+    fontSize: 17,
+    lineHeight: 20,
+  },
+  create: {
+    width: 70,
+    height: 40,
+    backgroundColor: "#FF6C00",
+    borderRadius: 20,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
