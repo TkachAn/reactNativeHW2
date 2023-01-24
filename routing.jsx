@@ -1,8 +1,8 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
+import {createStackNavigator} from "@react-navigation/stack";
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import {MaterialCommunityIcons, Feather} from "@expo/vector-icons";
+import {AntDesign} from "@expo/vector-icons";
 
 import LoginScreen from "./screens/auth/login";
 import RegisterScreen from "./screens/auth/regist";
@@ -18,27 +18,29 @@ export const useRoute = (isAuth) => {
     return (
       <AuthStack.Navigator>
         <AuthStack.Screen
-          options={{
-            headerShown: false,
-          }}
           name="Login"
           component={LoginScreen}
-        />
-        <AuthStack.Screen
           options={{
             headerShown: false,
           }}
+        />
+        <AuthStack.Screen
           name="Register"
           component={RegisterScreen}
+          options={{
+            headerShown: false,
+          }}
         />
       </AuthStack.Navigator>
     );
   }
   return (
-    <MainTab.Navigator tabBarOptions={{ showLabel: false }}>
+    <MainTab.Navigator tabBarOptions={{showLabel: false}}>
       <MainTab.Screen
+        name="Posts"
+        component={PostsScreen}
         options={{
-          tabBarIcon: ({ focused, size, color }) => (
+          tabBarIcon: ({focused, size, color}) => (
             <MaterialCommunityIcons
               name="postage-stamp"
               size={size}
@@ -46,30 +48,24 @@ export const useRoute = (isAuth) => {
             />
           ),
         }}
-        name="Posts"
-        component={PostsScreen}
       />
       <MainTab.Screen
+        name="Create"
+        component={CreateScreen}
         options={{
-          tabBarIcon: ({ focused, size, color }) => (
+          tabBarIcon: ({focused, size, color}) => (
             <AntDesign name="pluscircleo" size={35} color={color} />
           ),
         }}
-        name="Create"
-        component={CreateScreen}
       />
       <MainTab.Screen
-        options={{
-          tabBarIcon: ({ focused, size, color }) => (
-            <MaterialCommunityIcons
-              name="face-profile"
-              size={size}
-              color={color}
-            />
-          ),
-        }}
         name="Profile"
         component={ProfileScreen}
+        options={{
+          tabBarIcon: ({focused, size, color}) => (
+            <Feather name="user" size={size} color={color} />
+          ),
+        }}
       />
     </MainTab.Navigator>
   );
