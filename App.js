@@ -1,5 +1,5 @@
 import React, {useState, useCallback} from "react";
-import {Dimensions} from "react-native";
+import {Platform, Dimensions} from "react-native";
 import {NavigationContainer} from "@react-navigation/native";
 //
 import {useFonts} from "expo-font";
@@ -10,9 +10,9 @@ import {useRoute} from "./routing";
 const widthScreen = Dimensions.get("window").width;
 const heightScreen = Dimensions.get("window").height;
 //
-// console.log("Platform:", Platform.OS);
-console.log("width screen:", widthScreen);
-console.log("height screen:", heightScreen);
+console.log("Platform:", Platform.OS);
+console.log("width screen:", widthScreen.toFixed(0));
+console.log("height screen:", heightScreen.toFixed(0));
 console.log("App");
 //
 export default function App() {
@@ -32,33 +32,11 @@ export default function App() {
     return null;
   }
 
+  // const routing = useRoute(0);
   const routing = useRoute(1);
   return (
     <NavigationContainer onLayout={onLayoutRootView}>
       {routing}
     </NavigationContainer>
   );
-}
-{
-  // import RegScreen from "./Screens/Registration";
-  // import LoginScreen from "./Screens/Login";
-  // import Posts from "./Screens/Posts";
-  // import CreatePosts from "./Screens/CreatePosts";
-  // import Comments from "./Screens/Comments";
-  // import Map from "./Screens/Map";
-  // import Profile from "./Screens/Profile";
-  // import Home from "./Screens/Home";
-  /* <NavigationContainer onLayout={onLayoutRootView}>
-        <MainStack.Navigator initialRouteName="Home">
-          <MainStack.Screen name="Authorization" component={Authorization} />
-          <MainStack.Screen name="Registration" component={RegScreen} />
-          <MainStack.Screen name="Login" component={LoginScreen} />
-          <MainStack.Screen name="Home" component={Home} />
-          <MainStack.Screen name="Posts" component={Posts} />
-          <MainStack.Screen name="Create Post" component={CreatePosts} />
-          <MainStack.Screen name="Comments" component={Comments} />
-          <MainStack.Screen name="Maps" component={Map} />
-          <MainStack.Screen name="Profile" component={Profile} />
-        </MainStack.Navigator>
-      </NavigationContainer> */
 }
