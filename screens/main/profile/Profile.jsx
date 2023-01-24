@@ -30,9 +30,9 @@ const ProfileScreen = () => {
                 </View>
               </TouchableOpacity>
             </View>
-            <Text style={styles.title}>Natali Romanova</Text>
-            <View>
-              <Text style={styles.indicator}>Natali Romanova!</Text>
+            <Text style={styles.title}>Natali Romanoff</Text>
+            <View style={styles.onlyBox}>
+              <Text>Natali Romanoff</Text>
             </View>
             <View style={styles.indicator}></View>
           </View>
@@ -146,6 +146,16 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-400",
     fontSize: 16,
     lineHeight: 19,
+  },
+  onlyBox: {
+    // position: "absolute",
+    // top: -60,
+    width: "80%",
+    height: 150,
+    borderColor: "#E8E8E8",
+    borderRadius: 6,
+    borderWidth: 1,
+    backgroundColor: "#F6F6F6",
   },
 });
 
