@@ -11,14 +11,14 @@ const PostsScreen = () => {
           />
         </View>
         <View style={styles.userText}>
-          <Text style={styles.userName}>Natali Romanova</Text>
+          <Text style={styles.userName}>Natali Romanoff</Text>
           <Text style={styles.userEmail}>email@example.com</Text>
         </View>
       </View>
-      {/* <View style={styles.cont}>
+      <View style={styles.cont}>
         <Text>Posts Screen!</Text>
-        <Text>Posts Screen!</Text>
-      </View> */}
+        <Text>Posts Screen!!</Text>
+      </View>
     </View>
   );
 };
