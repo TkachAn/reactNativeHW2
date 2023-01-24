@@ -1,17 +1,16 @@
-import React, { useState, useCallback } from "react";
-import { Dimensions } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import React, {useState, useCallback} from "react";
+import {Dimensions} from "react-native";
+import {NavigationContainer} from "@react-navigation/native";
 //
-import { useFonts } from "expo-font";
+import {useFonts} from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 //
-import { useRoute } from "./routing";
+import {useRoute} from "./routing";
 //
-import LoginScreen from "./screens/auth/login";
 const widthScreen = Dimensions.get("window").width;
 const heightScreen = Dimensions.get("window").height;
 //
-console.log("Platform:", Platform.OS);
+// console.log("Platform:", Platform.OS);
 console.log("width screen:", widthScreen);
 console.log("height screen:", heightScreen);
 console.log("App");
