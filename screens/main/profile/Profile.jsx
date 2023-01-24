@@ -5,32 +5,27 @@ import {
   View,
   ImageBackground,
   Image,
-  TextInput,
   TouchableOpacity,
-  Platform,
-  KeyboardAvoidingView,
-  Keyboard,
-  TouchableWithoutFeedback,
 } from "react-native";
-const Profile = () => {
+const ProfileScreen = () => {
   return (
     <View style={styles.container}>
       <ImageBackground
         style={styles.image}
-        source={require("../assets/imgBgReg.png")}
+        source={require("../../../assets/imgBgReg.png")}
       >
         <View>
           <View style={styles.formBox}>
             <View style={styles.picBox}>
               <Image
-                source={require("../assets/adaptive-icon.png")}
-                style={{ width: 120, height: 120 }}
+                source={require("../../../assets/adaptive-icon.png")}
+                style={{width: 120, height: 120}}
               />
               <TouchableOpacity style={styles.plus} activeOpacity={0.8}>
                 <View>
                   <Image
                     style={styles.plusPic}
-                    source={require("../assets/plusOnly.png")}
+                    source={require("../../../assets/plusOnly.png")}
                   />
                 </View>
               </TouchableOpacity>
@@ -154,4 +149,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Profile;
+export default ProfileScreen;
