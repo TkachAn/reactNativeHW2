@@ -2,6 +2,7 @@ import React, {useState, useCallback} from "react";
 import {Platform, Dimensions} from "react-native";
 import {NavigationContainer} from "@react-navigation/native";
 //
+import {StatusBar} from "expo-status-bar";
 import {useFonts} from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 //
@@ -35,8 +36,11 @@ export default function App() {
   // const routing = useRoute(0);
   const routing = useRoute(1);
   return (
-    <NavigationContainer onLayout={onLayoutRootView}>
-      {routing}
-    </NavigationContainer>
+    <>
+      <StatusBar style="auto" />
+      <NavigationContainer onLayout={onLayoutRootView}>
+        {routing}
+      </NavigationContainer>
+    </>
   );
 }
