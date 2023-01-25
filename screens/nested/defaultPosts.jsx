@@ -9,7 +9,6 @@ import {
   SafeAreaView,
 } from "react-native";
 //
-import {AntDesign} from "@expo/vector-icons";
 import {Feather} from "@expo/vector-icons";
 //
 const Item = ({title, source, photoLocation, currentLocation, navigation}) => (
@@ -80,7 +79,10 @@ const DefaultPosts = ({route, navigation}) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.avatarContainer}>
         <View style={styles.avatar}>
-          <AntDesign name="user" size={35} color="black" />
+          <Image
+            source={require("../../assets/adaptive-icon.png")}
+            style={{width: 60, height: 60}}
+          />
         </View>
         <View style={styles.nameContainer}>
           <Text style={styles.name}>"Natali Romanoff"</Text>
