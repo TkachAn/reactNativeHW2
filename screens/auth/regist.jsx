@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import {StatusBar} from "expo-status-bar";
 import {
   StyleSheet,
   Text,
@@ -28,7 +27,7 @@ export default function RegisterScreen({navigation}) {
   const keyboardHide = () => {
     Keyboard.dismiss();
     setstate(initialState);
-    console.log(state);
+    // console.log(state);
     setIsShowKeyboard(false);
     setIsShowPassword(true);
   };
@@ -40,8 +39,6 @@ export default function RegisterScreen({navigation}) {
           style={styles.image}
           source={require("../../assets/imgBgReg.png")}
         >
-          <StatusBar style="auto" />
-
           <View>
             <KeyboardAvoidingView
               behavior={Platform.OS == "ios" ? "padding" : "height"}
