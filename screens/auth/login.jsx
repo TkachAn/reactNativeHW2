@@ -1,5 +1,5 @@
 import React, {useState, useCallback} from "react";
-import {StatusBar} from "expo-status-bar";
+// import {StatusBar} from "expo-status-bar";
 import {
   StyleSheet,
   Text,
@@ -32,7 +32,7 @@ export default function LoginScreen({navigation}, {onClick}) {
     setIsShowPassword(true);
     onClick = 1;
   };
-  console.log("onClick:", onClick);
+  // console.log("onClick:", onClick);
   const showPassword = () => setIsShowPassword(!isShowPassword);
   return (
     <View style={styles.container}>
@@ -41,8 +41,6 @@ export default function LoginScreen({navigation}, {onClick}) {
           style={styles.image}
           source={require("../../assets/imgBgReg.png")}
         >
-          <StatusBar style="auto" />
-
           <View>
             <KeyboardAvoidingView
               behavior={Platform.OS == "ios" ? "padding" : "height"}
