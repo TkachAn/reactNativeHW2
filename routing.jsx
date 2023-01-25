@@ -38,13 +38,14 @@ export const useRoute = (isAuth) => {
   return (
     <MainTab.Navigator tabBarOptions={{showLabel: false}}>
       <MainTab.Screen
-        name="Posts"
+        name="PostsScreen"
         component={PostsScreen}
         options={{
           tabBarIcon: ({focused, size, color}) => (
             <Feather name="grid" size={size} color={color} />
           ),
-          title: "Публикации",
+          headerShown: false,
+          // title: "Публикации",
         }}
       />
       <MainTab.Screen
@@ -59,9 +60,13 @@ export const useRoute = (isAuth) => {
             );
           },
           title: "Создать публикацию",
-          tabBarStyle: {
-            display: "none",
-          },
+          // tabBarShowLabel: false,
+          tabBarStyle: [
+            {
+              display: "none",
+            },
+            null,
+          ],
         }}
       />
       <MainTab.Screen
