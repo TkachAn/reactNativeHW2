@@ -12,7 +12,7 @@ const PostsScreen = () => {
         </View>
         <View style={styles.userText}>
           <Text style={styles.userName}>Natali Romanoff</Text>
-          <Text style={styles.userEmail}>email@example.com</Text>
+          <Text style={styles.userEmail}>natali@romanoff.com</Text>
         </View>
       </View>
       <View style={styles.photoContainer}>
@@ -20,7 +20,7 @@ const PostsScreen = () => {
         <Text>image</Text>
       </View>
       <View style={styles.cont}>
-        <Text>Posts Screen!</Text>
+        <Text>text</Text>
       </View>
     </View>
   );
