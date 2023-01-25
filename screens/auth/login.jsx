@@ -18,7 +18,7 @@ const initialState = {
   pass: "",
 };
 console.log("LoginScreen");
-export default function LoginScreen({navigation}) {
+export default function LoginScreen({navigation}, {onClick}) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setstate] = useState(initialState);
   const [isShowPassword, setIsShowPassword] = useState(true);
@@ -30,7 +30,9 @@ export default function LoginScreen({navigation}) {
     console.log(state);
     setIsShowKeyboard(false);
     setIsShowPassword(true);
+    onClick = 1;
   };
+  console.log("onClick:", onClick);
   const showPassword = () => setIsShowPassword(!isShowPassword);
   return (
     <View style={styles.container}>
