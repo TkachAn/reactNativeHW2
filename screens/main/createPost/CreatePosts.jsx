@@ -26,6 +26,37 @@ const CreatePosts = () => {
   const [shouldPublish, setShouldPublish] = useState(false);
   const [post, setPost] = useState(initialPost);
   const [errorMsg, setErrorMsg] = useState(null);
+  //
+  const photoHandler = (uri) => {
+    setPost((prevState) => ({...prevState, photo: uri}));
+    setShouldPublish(true);
+  };
+  const inputHandlerTitle = (title) => {
+    setPost((prevState) => ({...prevState, title}));
+    setShouldPublish(true);
+  };
+  const inputHandlerLocation = (photoLocation) => {
+    setPost((prevState) => ({...prevState, photoLocation}));
+    setShouldPublish(true);
+  };
+  const onFocusKeyboard = () => {
+    setIsShowKeyboard(true);
+  };
+  const onCreate = () => {
+    if (shouldPublish) {
+      navigation.navigate("DefaultPostScreen", post);
+      setPost(initialPost);
+    }
+  };
+
+  const onDelete = () => {
+    setPost(initialPost);
+  };
+
+  const onRemovePhoto = () => {
+    setPost((prevState) => ({...prevState, photo: null}));
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -44,21 +75,19 @@ const CreatePosts = () => {
             <Text>image</Text>
           </View>
           <View style={styles.loadPhoto}>
-            <TouchableOpacity
-            // onPress={onRemovePhoto}
-            >
+            <TouchableOpacity onPress={onRemovePhoto}>
               <Text>"Загрузите фото"</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.inputContainer}>
             <TextInput
               value={post.title}
-              // onChangeText={inputHandlerTitle}
+              onChangeText={inputHandlerTitle}
               placeholder={"Название..."}
               placeholderTextColor={"#BDBDBD"}
               style={styles.input}
-              // onFocus={onFocusKeyboard}
-              // onBlur={() => setIsShowKeyboard(false)}
+              onFocus={onFocusKeyboard}
+              onBlur={() => setIsShowKeyboard(false)}
             />
 
             <View>
@@ -71,12 +100,12 @@ const CreatePosts = () => {
             </View>
             <TextInput
               value={post.photoLocation}
-              // onChangeText={inputHandlerLocation}
+              onChangeText={inputHandlerLocation}
               placeholder={"Местность..."}
               placeholderTextColor={"#BDBDBD"}
               style={{...styles.input, paddingLeft: 28}}
-              // onFocus={onFocusKeyboard}
-              // onBlur={() => setIsShowKeyboard(false)}
+              onFocus={onFocusKeyboard}
+              onBlur={() => setIsShowKeyboard(false)}
             />
           </View>
           <TouchableOpacity
@@ -85,7 +114,7 @@ const CreatePosts = () => {
                 ? styles.btn
                 : {...styles.btn, backgroundColor: "#F6F6F6"}
             }
-            // onPress={onCreate}
+            onPress={onCreate}
           >
             <Text
               style={
@@ -116,7 +145,7 @@ const CreatePosts = () => {
                 alignItems: "center",
                 justifyContent: "center",
               }}
-              // onPress={onDelete}
+              onPress={onDelete}
             >
               <AntDesign name="delete" size={24} color="#BDBDBD" />
             </TouchableOpacity>
