@@ -3,7 +3,6 @@ import {
   StyleSheet,
   Text,
   View,
-  ImageBackground,
   Image,
   TextInput,
   TouchableOpacity,
@@ -12,39 +11,97 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
+//
+import * as Location from "expo-location";
+import {Camera, CameraType} from "expo-camera";
+import * as MediaLibrary from "expo-media-library";
+//
 import {Feather} from "@expo/vector-icons";
 import {AntDesign} from "@expo/vector-icons";
 import {FontAwesome} from "@expo/vector-icons";
+//
 const initialPost = {
   photo: "",
   title: "",
   photoLocation: "",
   currentLocation: "",
 };
-const CreatePosts = () => {
+//
+export const CreatePosts = ({navigation}) => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [shouldPublish, setShouldPublish] = useState(false);
   const [post, setPost] = useState(initialPost);
   const [errorMsg, setErrorMsg] = useState(null);
-  //
+
+  // Camera
+  const [cameraRef, setCameraRef] = useState(null);
+  const [permission, requestPermission] = Camera.useCameraPermissions();
+
+  useEffect(() => {
+    (async () => {
+      let {status} = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+      let location = await Location.getCurrentPositionAsync({});
+      setPost((prevState) => ({
+        ...prevState,
+        currentLocation: location.coords,
+      }));
+      let text;
+      if (errorMsg) {
+        text = errorMsg;
+      } else if (location) {
+        text = JSON.stringify(location);
+      }
+    })();
+
+    (async () => {
+      requestPermission();
+      await MediaLibrary.requestPermissionsAsync();
+    })();
+  }, []);
+
+  if (!permission) {
+    // Camera permissions are still loading
+    return <View />;
+  }
+
+  if (!permission.granted) {
+    // Camera permissions are not granted yet
+    return (
+      <View style={styles.container}>
+        <Text style={{textAlign: "center"}}>
+          We need your permission to show the camera
+        </Text>
+        <Button onPress={requestPermission} title="grant permission" />
+      </View>
+    );
+  }
+
   const photoHandler = (uri) => {
     setPost((prevState) => ({...prevState, photo: uri}));
     setShouldPublish(true);
   };
+
   const inputHandlerTitle = (title) => {
     setPost((prevState) => ({...prevState, title}));
     setShouldPublish(true);
   };
+
   const inputHandlerLocation = (photoLocation) => {
     setPost((prevState) => ({...prevState, photoLocation}));
     setShouldPublish(true);
   };
+
   const onFocusKeyboard = () => {
     setIsShowKeyboard(true);
   };
+
   const onCreate = () => {
     if (shouldPublish) {
-      navigation.navigate("DefaultPostScreen", post);
+      navigation.navigate("DefaultPosts", post);
       setPost(initialPost);
     }
   };
@@ -71,12 +128,46 @@ const CreatePosts = () => {
           }}
         >
           <View style={styles.photoContainer}>
-            <View style={styles.container}></View>
-            <Text>image</Text>
+            <View style={styles.container}>
+              {post.photo ? (
+                <Image
+                  source={{uri: post.photo}}
+                  style={{height: "100%", width: "100%", borderRadius: 8}}
+                />
+              ) : (
+                <Camera
+                  style={styles.camera}
+                  type={CameraType.back}
+                  ref={(ref) => {
+                    setCameraRef(ref);
+                  }}
+                  autoFocus={Camera.Constants.AutoFocus.on}
+                >
+                  <View style={styles.photoView}>
+                    <TouchableOpacity
+                      style={styles.button}
+                      onPress={async () => {
+                        if (cameraRef) {
+                          const {uri} = await cameraRef.takePictureAsync();
+                          photoHandler(uri);
+                          await MediaLibrary.createAssetAsync(uri);
+                        }
+                      }}
+                    >
+                      <View style={styles.takePhotoOut}>
+                        <FontAwesome name="camera" size={24} color="gray" />
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                </Camera>
+              )}
+            </View>
           </View>
           <View style={styles.loadPhoto}>
             <TouchableOpacity onPress={onRemovePhoto}>
-              <Text>"Загрузите фото"</Text>
+              <Text style={styles.loadPhoto_text}>
+                {post.photo ? "Редактировать фото" : "Загрузите фото"}
+              </Text>
             </TouchableOpacity>
           </View>
           <View style={styles.inputContainer}>
