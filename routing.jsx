@@ -4,7 +4,6 @@ import {createStackNavigator} from "@react-navigation/stack";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 //
 import {Feather} from "@expo/vector-icons";
-import {AntDesign} from "@expo/vector-icons";
 //
 import LoginScreen from "./screens/auth/login";
 import RegisterScreen from "./screens/auth/regist";
@@ -60,9 +59,9 @@ export const useRoute = (isAuth) => {
             );
           },
           title: "Создать публикацию",
-          // tabBarStyle: {
-          //   display: "none",
-          // },
+          tabBarStyle: {
+            display: "none",
+          },
         }}
       />
       <MainTab.Screen
