@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {
   StyleSheet,
   Text,
@@ -6,8 +6,27 @@ import {
   ImageBackground,
   Image,
   TouchableOpacity,
+  FlatList,
+  SafeAreaView,
 } from "react-native";
-const ProfileScreen = () => {
+import {Item} from "../../main/components/itemPic";
+const ProfileScreen = ({route, navigation}) => {
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    if (route.params) {
+      setPosts((prevState) => [...prevState, route.params]);
+    }
+  }, []);
+
+  const renderItem = ({item}) => (
+    <Item
+      navigation={navigation}
+      title={item.title}
+      source={item.photo}
+      photoLocation={item.photoLocation}
+      currentLocation={item.currentLocation}
+    />
+  );
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -31,9 +50,13 @@ const ProfileScreen = () => {
               </TouchableOpacity>
             </View>
             <Text style={styles.title}>Natali Romanoff</Text>
-            <View style={styles.onlyBox}>
-              <Text>Natali Romanoff</Text>
-            </View>
+            <SafeAreaView style={styles.container}>
+              <FlatList
+                data={posts}
+                renderItem={renderItem}
+                keyExtractor={(item, index) => index}
+              />
+            </SafeAreaView>
             <View style={styles.indicator}></View>
           </View>
         </View>
