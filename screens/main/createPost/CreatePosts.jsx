@@ -102,7 +102,7 @@ export const CreatePosts = ({navigation}) => {
   const onCreate = () => {
     if (shouldPublish) {
       navigation.navigate("DefaultPosts", post);
-      navigation.navigate("ProfileScreen", posts);
+      // navigation.navigate("ProfileScreen", posts);
       setPost(initialPost);
     }
   };
