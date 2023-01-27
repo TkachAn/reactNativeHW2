@@ -6,7 +6,10 @@ import {StatusBar} from "expo-status-bar";
 import {useFonts} from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 //
+import {Provider} from "react-redux";
+//
 import {useRoute} from "./routing";
+import {store} from "./redux/store";
 //
 const widthScreen = Dimensions.get("window").width;
 const heightScreen = Dimensions.get("window").height;
@@ -36,11 +39,11 @@ export default function App() {
   // const routing = useRoute(0);
   const routing = useRoute(1);
   return (
-    <>
+    <Provider store={store}>
       <StatusBar style="auto" />
       <NavigationContainer onLayout={onLayoutRootView}>
         {routing}
       </NavigationContainer>
-    </>
+    </Provider>
   );
 }
