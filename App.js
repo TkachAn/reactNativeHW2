@@ -1,5 +1,6 @@
 import React, {useState, useCallback} from "react";
 import {Platform, Dimensions} from "react-native";
+
 import {NavigationContainer} from "@react-navigation/native";
 //
 import {StatusBar} from "expo-status-bar";
@@ -9,7 +10,7 @@ import * as SplashScreen from "expo-splash-screen";
 import {Provider} from "react-redux";
 //
 import {useRoute} from "./routing";
-import {store} from "./redux/store";
+import {store} from "./redux/store.js";
 //
 const widthScreen = Dimensions.get("window").width;
 const heightScreen = Dimensions.get("window").height;
@@ -36,14 +37,16 @@ export default function App() {
     return null;
   }
 
-  // const routing = useRoute(0);
-  const routing = useRoute(1);
+  const routing = useRoute(0);
+  // const routing = useRoute(1);
   return (
-    <Provider store={store}>
-      <StatusBar style="auto" />
-      <NavigationContainer onLayout={onLayoutRootView}>
-        {routing}
-      </NavigationContainer>
-    </Provider>
+    <>
+      <Provider store={store}>
+        <StatusBar style="auto" />
+        <NavigationContainer onLayout={onLayoutRootView}>
+          {routing}
+        </NavigationContainer>
+      </Provider>
+    </>
   );
 }
