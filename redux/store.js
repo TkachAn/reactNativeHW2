@@ -1,11 +1,11 @@
 import {configureStore, combineReducers} from "@reduxjs/toolkit";
-import {authSlice} from "./auth";
-import {dashSlice} from "./dashBoard";
+import {authSlice} from "./authorization/auth";
+// import {dashSlice} from "./dashBoard";
 //
-const rootReduser = combineReducers({
+const rootReducer = combineReducers({
   [authSlice.name]: authSlice.reducer,
-  [dashSlice.name]: dashSlice.reducer,
+  // [dashSlice.name]: dashSlice.reducer,
 });
 export const store = configureStore({
-  reducer: rootReduser,
+  reducer: rootReducer,
 });
