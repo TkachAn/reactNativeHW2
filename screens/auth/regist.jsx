@@ -18,6 +18,7 @@ const initialState = {
   login: "",
   email: "",
   pass: "",
+  avatar: "",
 };
 console.log("RegisterScreen");
 export default function RegisterScreen({navigation}) {
@@ -30,8 +31,10 @@ export default function RegisterScreen({navigation}) {
   const handleSubmit = () => {
     Keyboard.dismiss();
     setstate(initialState);
-    // console.log(state);
-    dispatch(authSignUp(state));
+    console.log(state);
+    if (state) {
+      dispatch(authSignUp(state));
+    }
     setIsShowKeyboard(false);
     setIsShowPassword(true);
   };
