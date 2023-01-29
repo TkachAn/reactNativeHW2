@@ -24,7 +24,7 @@ export default function LoginScreen({navigation}, {onClick}) {
   const [isShowPassword, setIsShowPassword] = useState(true);
   // const {userId} = route.params;
   // console.log("userId", userId);
-  const keyboardHide = () => {
+  const handleSubmit = () => {
     Keyboard.dismiss();
     setstate(initialState);
     console.log(state);
@@ -36,7 +36,7 @@ export default function LoginScreen({navigation}, {onClick}) {
   const showPassword = () => setIsShowPassword(!isShowPassword);
   return (
     <View style={styles.container}>
-      <TouchableWithoutFeedback onPress={keyboardHide}>
+      <TouchableWithoutFeedback onPress={handleSubmit}>
         <ImageBackground
           style={styles.image}
           source={require("../../assets/imgBgReg.png")}
@@ -86,7 +86,7 @@ export default function LoginScreen({navigation}, {onClick}) {
                 </View>
                 <TouchableOpacity
                   style={{...styles.btn, marginTop: isShowKeyboard ? 0 : 40}}
-                  onPress={keyboardHide}
+                  onPress={handleSubmit}
                   activeOpacity={0.8}
                 >
                   <Text style={styles.btnTitle}>Войти</Text>
