@@ -10,7 +10,7 @@ import * as SplashScreen from "expo-splash-screen";
 import {Provider} from "react-redux";
 //
 import {useRoute} from "./routing";
-import {store} from "./redux/store.js";
+import {store} from "./redux/store";
 //
 const widthScreen = Dimensions.get("window").width;
 const heightScreen = Dimensions.get("window").height;
