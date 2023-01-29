@@ -11,6 +11,8 @@ import PostsScreen from "./screens/main/posts/Posts";
 import CreatePost from "./screens/main/createPost/CreatePosts";
 import ProfileScreen from "./screens/main/profile/Profile";
 //
+console.log("Routing");
+//
 const AuthStack = createStackNavigator();
 const MainTab = createBottomTabNavigator();
 //
