@@ -1,19 +1,19 @@
-import {createSlice} from "@reduxjs/toolkit";
-//
-export const authSlice = createSlice({
-  name: "auth",
-  initialState: {
-    userId: null,
-    nickname: null,
-  },
-  reducers: {},
-});
-//
-export const dashSlice = createSlice({
-  name: "auth",
-  initialState: {
-    userId: null,
-    nickname: null,
-  },
-  reducers: {},
-});
+// import {createSlice} from "@reduxjs/toolkit";
+// //
+// export const authSlice = createSlice({
+//   name: "auth",
+//   initialState: {
+//     userId: null,
+//     nickname: null,
+//   },
+//   reducers: {},
+// });
+// //
+// export const dashSlice = createSlice({
+//   name: "auth",
+//   initialState: {
+//     userId: null,
+//     nickname: null,
+//   },
+//   reducers: {},
+// });
