@@ -16,9 +16,9 @@ const authSignUp =
       }); //createUserWithEmailAndPassword
       console.log("user:", user);
     } catch (error) {
-      // console.log("error:", error);
+      console.log("error:", error);
       console.log("error.code:", error.code);
-      // console.log("error.message:", error.message);
+      console.log("error.message:", error.message);
     }
   };
 //
