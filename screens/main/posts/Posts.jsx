@@ -1,12 +1,13 @@
 import React from "react";
-// import { moduleName } from "react-native";
 import {createStackNavigator} from "@react-navigation/stack";
 import DefaultPosts from "../../nested/defaultPosts";
 import Comments from "../../nested/Comments";
 import Maps from "../../nested/Map";
-
+//
+console.log("PostsScreen!");
+//
 const Nested = createStackNavigator();
-
+//
 const PostsScreen = () => {
   return (
     <Nested.Navigator>
