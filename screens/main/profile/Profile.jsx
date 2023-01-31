@@ -10,8 +10,12 @@ import {
   SafeAreaView,
 } from "react-native";
 import {Item} from "../../main/components/itemPic";
+//
+console.log("ProfileScreen!");
+//
 const ProfileScreen = ({route, navigation}) => {
   const [posts, setPosts] = useState([]);
+
   useEffect(() => {
     if (route.params) {
       setPosts((prevState) => [...prevState, route.params]);
@@ -64,7 +68,7 @@ const ProfileScreen = ({route, navigation}) => {
     </View>
   );
 };
-
+//
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -181,5 +185,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#F6F6F6",
   },
 });
-
+//
 export default ProfileScreen;
