@@ -116,17 +116,17 @@ export const CreatePosts = ({navigation}) => {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.container}
-    >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View
-          style={{
-            flex: 1,
-            paddingHorizontal: 16,
-            backgroundColor: "#fff",
-          }}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View
+        style={{
+          flex: 1,
+          paddingHorizontal: 16,
+          backgroundColor: "#fff",
+        }}
+      >
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={styles.container}
         >
           <View style={styles.photoContainer}>
             <View style={styles.container}>
@@ -242,9 +242,9 @@ export const CreatePosts = ({navigation}) => {
               <AntDesign name="delete" size={24} color="#BDBDBD" />
             </TouchableOpacity>
           </View>
-        </View>
-      </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
