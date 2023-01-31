@@ -13,11 +13,11 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
-import {authSignUp} from "../../redux/authorization/authOperations";
+// import {authSignUp} from "../../redux/authorization/authOperations";
 const initialState = {
   login: "",
   email: "",
-  pass: "",
+  password: "",
   avatar: "",
 };
 console.log("RegisterScreen");
@@ -26,15 +26,15 @@ export default function RegisterScreen({navigation}) {
   const [state, setstate] = useState(initialState);
   const [isShowPassword, setIsShowPassword] = useState(true);
   //
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   //
   const handleSubmit = () => {
     Keyboard.dismiss();
     setstate(initialState);
     console.log(state);
-    if (state) {
-      dispatch(authSignUp(state));
-    }
+    // if (state) {
+    //   dispatch(authSignUp(state));
+    // }
     setIsShowKeyboard(false);
     setIsShowPassword(true);
   };
