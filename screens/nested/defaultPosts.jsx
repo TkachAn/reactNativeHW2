@@ -10,6 +10,8 @@ import {
 //
 import {Item} from "../main/components/itemPic";
 //
+console.log("DefaultPostsScreen!");
+//
 const DefaultPosts = ({route, navigation}) => {
   const [posts, setPosts] = useState([]);
 
