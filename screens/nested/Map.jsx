@@ -3,6 +3,8 @@ import {View, Text, StyleSheet, Dimensions} from "react-native";
 import MapView, {Marker} from "react-native-maps";
 // import * as Location from "expo-location";
 //
+console.log("MapsScreen!");
+//
 const Maps = ({route}) => {
   const [location, setLocation] = useState(null);
   useEffect(() => {
