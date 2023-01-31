@@ -1,4 +1,5 @@
 import React, {useState, useCallback} from "react";
+import {useDispatch} from "react-redux";
 // import {StatusBar} from "expo-status-bar";
 import {
   StyleSheet,
@@ -15,19 +16,24 @@ import {
 
 const initialState = {
   email: "",
-  pass: "",
+  password: "",
 };
-console.log("LoginScreen");
+console.log("LoginScreen!");
+
 export default function LoginScreen({navigation}, {onClick}) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setstate] = useState(initialState);
   const [isShowPassword, setIsShowPassword] = useState(true);
   // const {userId} = route.params;
+  // const dispatch = useDispatch();
   // console.log("userId", userId);
   const handleSubmit = () => {
     Keyboard.dismiss();
     setstate(initialState);
     console.log(state);
+    // if (state) {
+    //   dispatch(authSignUp(state));
+    // }
     setIsShowKeyboard(false);
     setIsShowPassword(true);
     onClick = 1;
