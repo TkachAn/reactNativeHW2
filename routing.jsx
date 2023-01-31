@@ -3,6 +3,8 @@ import {StyleSheet, View} from "react-native";
 import {createStackNavigator} from "@react-navigation/stack";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 //
+
+//
 import {Feather} from "@expo/vector-icons";
 //
 import LoginScreen from "./screens/auth/login";
@@ -11,7 +13,7 @@ import PostsScreen from "./screens/main/posts/Posts";
 import CreatePost from "./screens/main/createPost/CreatePosts";
 import ProfileScreen from "./screens/main/profile/Profile";
 //
-console.log("Routing");
+console.log("Routing!");
 //
 const AuthStack = createStackNavigator();
 const MainTab = createBottomTabNavigator();
@@ -38,7 +40,29 @@ export const useRoute = (isAuth) => {
     );
   }
   return (
-    <MainTab.Navigator tabBarOptions={{showLabel: false}}>
+    // <MainTab.Navigator tabBarOptions={{showLabel: false}}>
+    <MainTab.Navigator
+      screenOptions={{
+        headerTitleAlign: "center",
+        headerStyle: {
+          height: 88,
+          borderBottomWidth: 1,
+          borderBottomColor: "#B3B3B3",
+        },
+        headerTitleStyle: {
+          fontWeight: "bold",
+          lineHeight: 22,
+        },
+        tabBarStyle: {
+          height: 83,
+          paddingHorizontal: 63,
+          borderTopWidth: 1,
+          borderTopColor: "#B3B3B3",
+        },
+        tabBarShowLabel: false,
+        tabBarActiveTintColor: "#FF6C00",
+      }}
+    >
       <MainTab.Screen
         name="PostsScreen"
         component={PostsScreen}
