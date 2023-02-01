@@ -3,8 +3,6 @@ import {StyleSheet, View} from "react-native";
 import {createStackNavigator} from "@react-navigation/stack";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 //
-
-//
 import {Feather} from "@expo/vector-icons";
 //
 import LoginScreen from "./screens/auth/login";
@@ -40,7 +38,7 @@ export const useRoute = (isAuth) => {
     );
   }
   return (
-    // <MainTab.Navigator tabBarOptions={{showLabel: false}}>
+    //
     <MainTab.Navigator
       screenOptions={{
         headerTitleAlign: "center",
