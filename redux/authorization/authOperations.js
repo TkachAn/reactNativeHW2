@@ -38,8 +38,8 @@ const authSignIn =
     }
   };
 //
-const authSignOut =
-  ({email}) =>
-  async (dispatch, getState) => {};
+const authSignOut = () => async (dispatch, getState) => {
+  const user = await signOut(auth);
+};
 
 export {authSignIn, authSignUp, authSignOut};
