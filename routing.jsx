@@ -1,9 +1,14 @@
 import React from "react";
-import {StyleSheet, View} from "react-native";
+import {useDispatch} from "react-redux";
+import {StyleSheet, View, Alert} from "react-native";
 import {createStackNavigator} from "@react-navigation/stack";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 //
 import {Feather} from "@expo/vector-icons";
+import {Ionicons} from "@expo/vector-icons";
+//
+//
+import {authSignOut} from "./redux/authorization/authOperations";
 //
 import LoginScreen from "./screens/auth/login";
 import RegisterScreen from "./screens/auth/regist";
@@ -17,6 +22,17 @@ const AuthStack = createStackNavigator();
 const MainTab = createBottomTabNavigator();
 //
 export const useRoute = (isAuth) => {
+  const outButtonAlert = () => {
+    // const dispatch = useDispatch();
+    Alert.alert("На ВЫХОД с вещями", "до Свидапия!", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      {text: "OK", onPress: () => authSignOut()}, //console.log("OK Pressed")},
+    ]);
+  };
   if (!isAuth) {
     return (
       <AuthStack.Navigator>
@@ -68,8 +84,16 @@ export const useRoute = (isAuth) => {
           tabBarIcon: ({focused, size, color}) => (
             <Feather name="grid" size={size} color={color} />
           ),
-          headerShown: false,
-          // title: "Публикации",
+          title: "Публикации!",
+          headerRight: ({color}) => (
+            <Ionicons
+              style={{marginRight: 20}}
+              name="exit-outline"
+              size={24}
+              color={color}
+              onPress={() => outButtonAlert()}
+            />
+          ),
         }}
       />
       <MainTab.Screen
@@ -119,6 +143,11 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     display: "flex",
     justifyContent: "center",
+    alignItems: "center",
+  },
+  container: {
+    flex: 1,
+    justifyContent: "space-around",
     alignItems: "center",
   },
 });
