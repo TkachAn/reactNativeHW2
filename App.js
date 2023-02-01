@@ -9,6 +9,9 @@ import * as SplashScreen from "expo-splash-screen";
 //
 import {Provider} from "react-redux";
 //
+import {onAuthStateChanged} from "firebase/auth";
+import {auth} from "./firebase/config";
+//
 import {useRoute} from "./routing";
 import {store} from "./redux/store";
 //
@@ -27,6 +30,8 @@ export default function App() {
     "Roboto-700": require("./assets/fonts/Roboto/Roboto-Bold.ttf"),
   });
   //
+  const [user, setUser] = useState(null);
+  // const routing = useRoute(user);
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
       await SplashScreen.hideAsync();
@@ -36,7 +41,7 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
-
+  const userYes = onAuthStateChanged(auth, (user) => setUser(user));
   const routing = useRoute(0);
   // const routing = useRoute(1);
   return (
