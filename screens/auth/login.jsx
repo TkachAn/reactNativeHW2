@@ -1,6 +1,5 @@
 import React, {useState, useCallback} from "react";
 import {useDispatch} from "react-redux";
-// import {StatusBar} from "expo-status-bar";
 import {
   StyleSheet,
   Text,
@@ -13,31 +12,35 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
-
+//
+import {authSignIn} from "../../redux/authorization/authOperations";
+//
 const initialState = {
   email: "",
   password: "",
 };
+//
 console.log("LoginScreen!");
-
+//
 export default function LoginScreen({navigation}, {onClick}) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setstate] = useState(initialState);
   const [isShowPassword, setIsShowPassword] = useState(true);
   // const {userId} = route.params;
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // console.log("userId", userId);
   const handleSubmit = () => {
     Keyboard.dismiss();
     setstate(initialState);
-    console.log(state);
-    // if (state) {
-    //   dispatch(authSignUp(state));
-    // }
+    console.log("state", state);
+
     setIsShowKeyboard(false);
     setIsShowPassword(true);
     onClick = 1;
   };
+  if (state.email !== "" || state.password !== "") {
+    dispatch(authSignIn(state));
+  }
   // console.log("onClick:", onClick);
   const showPassword = () => setIsShowPassword(!isShowPassword);
   return (
