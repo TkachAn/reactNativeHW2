@@ -9,5 +9,12 @@ export const authSlice = createSlice({
     login: null,
     // email: null,
   },
-  reducers: {},
+  reducers: {
+    // removeUser(state) {
+    //   state.email = null;
+    //   state.login = null;
+    //   state.userId = null;
+    // },
+  },
 });
+// export const {removeUser} = userSlice;
