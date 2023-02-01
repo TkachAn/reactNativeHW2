@@ -86,7 +86,7 @@ export const useRoute = (isAuth) => {
             );
           },
           title: "Создать публикацию",
-          // tabBarShowLabel: false,
+          tabBarShowLabel: false,
           tabBarStyle: [
             {
               display: "none",
