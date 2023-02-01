@@ -77,13 +77,13 @@ export default function LoginScreen({navigation}, {onClick}) {
                 />
                 <View style={styles.input}>
                   <TextInput
-                    style={styles.inputPass}
+                    style={styles.inputPassword}
                     placeholder="Пароль"
                     onFocus={() => setIsShowKeyboard(true)}
                     secureTextEntry={isShowPassword}
-                    value={state.pass}
+                    value={state.password}
                     onChangeText={(value) =>
-                      setstate((prevState) => ({...prevState, pass: value}))
+                      setstate((prevState) => ({...prevState, password: value}))
                     }
                   />
                   <TouchableOpacity
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     width: "91%",
     height: 50,
   },
-  inputPass: {
+  inputPassword: {
     top: 9,
   },
   btn: {
