@@ -26,15 +26,15 @@ export default function RegisterScreen({navigation}) {
   const [state, setstate] = useState(initialState);
   const [isShowPassword, setIsShowPassword] = useState(true);
   //
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   //
   const handleSubmit = () => {
     Keyboard.dismiss();
     setstate(initialState);
     console.log(state);
-    // if (state) {
-    //   dispatch(authSignUp(state));
-    // }
+    if (state) {
+      dispatch(authSignUp(state));
+    }
     setIsShowKeyboard(false);
     setIsShowPassword(true);
   };
