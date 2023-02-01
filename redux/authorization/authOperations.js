@@ -1,19 +1,14 @@
 import {
-  getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-// import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import {app} from "../../firebase/config";
-const auth = getAuth(app);
-// import {auth} from "../../firebase/config";
-// import {auth} from "../authorization/auth";
-
+//
+import {auth} from "../../firebase/config";
 import {authSlice} from "../authorization/auth";
 //
 console.log("Operations!");
-// const {updateUserProfile, authSignOut, authStateChange} = authSlice.actions;
+//
 const authSignUp =
   ({login, email, password}) =>
   async (dispatch, getState) => {
@@ -23,9 +18,7 @@ const authSignUp =
         displayName: login,
       });
       const user = auth.currentUser;
-      console.log("user", user);
-
-      const updateUserSuccess = auth.currentUser;
+      console.log("authSignUp user:", user);
       dispatch(authSlice.actions.updateUserProfile(user));
     } catch (error) {
       console.log("error", error);
@@ -45,6 +38,8 @@ const authSignIn =
     }
   };
 //
-const authSignOut = () => async (dispatch, getState) => {};
+const authSignOut =
+  ({email}) =>
+  async (dispatch, getState) => {};
 
 export {authSignIn, authSignUp, authSignOut};
