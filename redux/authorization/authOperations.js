@@ -1,28 +1,49 @@
-import firebase from "../../firebase/config";
-import {authSlice} from "./auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+// import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {app} from "../../firebase/config";
+const auth = getAuth(app);
+// import {auth} from "../../firebase/config";
+// import {auth} from "../authorization/auth";
+
+import {authSlice} from "../authorization/auth";
 //
-console.log("Operations");
+console.log("Operations!");
 // const {updateUserProfile, authSignOut, authStateChange} = authSlice.actions;
 const authSignUp =
-  ({email, pass, login}) =>
+  ({login, email, password}) =>
   async (dispatch, getState) => {
-    console.log("email, password, nickname", email, pass, login);
     try {
-      const user = await firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, pass);
-      await user.updateProfile({
+      await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(auth.currentUser, {
         displayName: login,
-      }); //createUserWithEmailAndPassword
-      console.log("user:", user);
+      });
+      const user = auth.currentUser;
+      console.log("user", user);
+
+      const updateUserSuccess = auth.currentUser;
+      dispatch(authSlice.actions.updateUserProfile(user));
     } catch (error) {
-      console.log("error:", error);
-      console.log("error.code:", error.code);
-      console.log("error.message:", error.message);
+      console.log("error", error);
+      console.log("error.message", error.message);
     }
   };
 //
-const authSignIn = () => async (dispatch, getState) => {};
+const authSignIn =
+  ({email, password}) =>
+  async (dispatch, getState) => {
+    try {
+      const user = await signInWithEmailAndPassword(auth, email, password);
+      console.log("user", user);
+    } catch (error) {
+      console.log("error", error);
+      console.log("error.message", error.message);
+    }
+  };
 //
 const authSignOut = () => async (dispatch, getState) => {};
 
