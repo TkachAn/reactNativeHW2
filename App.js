@@ -1,6 +1,5 @@
 import React, {useState, useCallback} from "react";
 import {Platform, Dimensions} from "react-native";
-
 import {NavigationContainer} from "@react-navigation/native";
 //
 import {StatusBar} from "expo-status-bar";
@@ -31,7 +30,7 @@ export default function App() {
   });
   //
   const [user, setUser] = useState(null);
-  // const routing = useRoute(user);
+  //
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
       await SplashScreen.hideAsync();
@@ -41,9 +40,10 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
-  const userYes = onAuthStateChanged(auth, (user) => setUser(user));
-  const routing = useRoute(0);
-  // const routing = useRoute(1);
+  //
+  onAuthStateChanged(auth, (user) => setUser(user));
+  const routing = useRoute(user);
+  //
   return (
     <>
       <Provider store={store}>
