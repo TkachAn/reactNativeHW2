@@ -33,14 +33,13 @@ export default function LoginScreen({navigation}, {onClick}) {
     Keyboard.dismiss();
     setstate(initialState);
     console.log("state", state);
-
-    setIsShowKeyboard(false);
-    setIsShowPassword(true);
-    onClick = 1;
+    if (state.email !== "" && state.password !== "") {
+      dispatch(authSignIn(state));
+      setIsShowKeyboard(false);
+      setIsShowPassword(true);
+      onClick = 1;
+    }
   };
-  if (state.email !== "" || state.password !== "") {
-    dispatch(authSignIn(state));
-  }
   // console.log("onClick:", onClick);
   const showPassword = () => setIsShowPassword(!isShowPassword);
   return (
@@ -135,7 +134,7 @@ const styles = StyleSheet.create({
 
   formBox: {
     alignItems: "center",
-    borderRadius: 25,
+    // borderRadius: 25,
     backgroundColor: "#fff",
   },
 
