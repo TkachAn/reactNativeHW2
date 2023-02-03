@@ -8,7 +8,7 @@ import {Feather} from "@expo/vector-icons";
 import {Ionicons} from "@expo/vector-icons";
 //
 //
-import {authSignOut} from "./redux/authorization/authOperations";
+// import {authSignOut} from "./redux/authorization/authOperations";
 //
 import LoginScreen from "./screens/auth/login";
 import RegisterScreen from "./screens/auth/regist";
@@ -30,7 +30,7 @@ export const useRoute = (isAuth) => {
         onPress: () => console.log("Cancel Pressed"),
         style: "cancel",
       },
-      {text: "OK", onPress: () => authSignOut()}, //console.log("OK Pressed")},
+      {text: "OK", onPress: () => console.log("OK Pressed")}, //authSignOut()}, //
     ]);
   };
   if (!isAuth) {
