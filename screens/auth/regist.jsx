@@ -5,7 +5,6 @@ import {
   Text,
   View,
   ImageBackground,
-  Image,
   TextInput,
   TouchableOpacity,
   Platform,
@@ -14,11 +13,13 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import {authSignUp} from "../../redux/authorization/authOperations";
+import Avatar from "../components/avatar";
+//
 const initialState = {
   login: "",
   email: "",
   password: "",
-  avatar: "",
+  avatar: "https://reactnative.dev/docs/assets/p_cat2.png",
 };
 console.log("RegisterScreen");
 export default function RegisterScreen({navigation}) {
@@ -39,60 +40,58 @@ export default function RegisterScreen({navigation}) {
     setIsShowPassword(true);
   };
   const showPassword = () => setIsShowPassword(!isShowPassword);
+  const addPic = () => {
+    console.log("add Pic");
+  };
   return (
     <View style={styles.container}>
       <TouchableWithoutFeedback onPress={handleSubmit}>
         <ImageBackground
-          style={styles.image}
+          style={styles.imageBG}
           source={require("../../assets/imgBgReg.png")}
         >
-          <View>
+          <View style={styles.containerForm}>
+            <View style={styles.avatarPosition}>
+              <View style={styles.avatarBox}>
+                <Avatar pic={state.avatar} press={addPic} />
+              </View>
+            </View>
+
+            <View style={styles.titlePosition}>
+              <Text style={styles.title}>Регистраця</Text>
+            </View>
             <KeyboardAvoidingView
               behavior={Platform.OS == "ios" ? "padding" : "height"}
             >
-              <View style={styles.formBox}>
-                <View style={styles.picBox}>
-                  <TouchableOpacity style={styles.plus} activeOpacity={0.8}>
-                    <View>
-                      <Image
-                        style={styles.plusPic}
-                        source={require("../../assets/plusOnly.png")}
-                      />
-                    </View>
-                  </TouchableOpacity>
-                </View>
-                <Text
-                  style={{
-                    ...styles.title,
-                    marginBottom: isShowKeyboard ? 10 : 33,
-                    marginTop: isShowKeyboard ? 62 : 92,
-                  }}
-                >
-                  Регистрация
-                </Text>
-                <TextInput
-                  keyboardType="email-address"
-                  style={styles.input}
-                  placeholder="Логин"
-                  onFocus={() => setIsShowKeyboard(true)}
-                  value={state.login}
-                  onChangeText={(value) =>
-                    setstate((prevState) => ({...prevState, login: value}))
-                  }
-                />
-                <TextInput
-                  keyboardType="email-address"
-                  style={styles.input}
-                  placeholder="Адрес электронной почты "
-                  onFocus={() => setIsShowKeyboard(true)}
-                  value={state.email}
-                  onChangeText={(value) =>
-                    setstate((prevState) => ({...prevState, email: value}))
-                  }
-                />
-                <View style={styles.input}>
+              <View>
+                <View style={styles.inputBox}>
                   <TextInput
-                    style={styles.inputPassword}
+                    keyboardType="email-address"
+                    style={styles.input}
+                    placeholder="Логин"
+                    onFocus={() => setIsShowKeyboard(true)}
+                    value={state.login}
+                    onChangeText={(value) =>
+                      setstate((prevState) => ({...prevState, login: value}))
+                    }
+                  />
+                </View>
+                <View style={styles.inputBox}>
+                  <TextInput
+                    keyboardType="email-address"
+                    style={styles.input}
+                    placeholder="Адрес электронной почты "
+                    onFocus={() => setIsShowKeyboard(true)}
+                    value={state.email}
+                    onChangeText={(value) =>
+                      setstate((prevState) => ({...prevState, email: value}))
+                    }
+                  />
+                </View>
+                <View style={styles.inputBox}>
+                  <TextInput
+                    style={styles.input}
+                    // keyboardType="email-address"
                     placeholder="Пароль"
                     onFocus={() => setIsShowKeyboard(true)}
                     secureTextEntry={isShowPassword}
@@ -108,27 +107,26 @@ export default function RegisterScreen({navigation}) {
                     <Text style={styles.input__text}>Показать</Text>
                   </TouchableOpacity>
                 </View>
+              </View>
+              <View>
                 <TouchableOpacity
-                  style={{...styles.btn, marginTop: isShowKeyboard ? 0 : 40}}
+                  style={styles.btn}
                   onPress={handleSubmit}
                   activeOpacity={0.8}
                 >
                   <Text style={styles.btnTitle}>Зарегистрироваться</Text>
                 </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.link}
-                  onPress={() => navigation.navigate("LoginScreen")}
-                >
-                  <Text style={styles.link__text}>Уже есть аккаунт? Войти</Text>
-                </TouchableOpacity>
-                <View
-                  style={{
-                    ...styles.indicator,
-                    marginTop: isShowKeyboard ? 10 : 46,
-                  }}
-                ></View>
               </View>
             </KeyboardAvoidingView>
+            <View style={styles.input2}>
+              <TouchableOpacity
+                style={styles.link}
+                onPress={() => navigation.navigate("LoginScreen")}
+              >
+                <Text style={styles.link__text}>Уже есть аккаунт? Войти</Text>
+              </TouchableOpacity>
+              <View style={styles.indicator}></View>
+            </View>
           </View>
         </ImageBackground>
       </TouchableWithoutFeedback>
@@ -140,71 +138,52 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  image: {
+  imageBG: {
     flex: 1,
     resizeMode: "cover",
     justifyContent: "flex-end",
   },
-
-  formBox: {
-    alignItems: "center",
-    borderRadius: 25,
+  containerForm: {
     backgroundColor: "#fff",
   },
-  picBox: {
+  avatarPosition: {
+    position: "relative",
+    alignItems: "center",
+  },
+  avatarBox: {
     position: "absolute",
     top: -60,
-    width: 120,
-    height: 120,
-    borderColor: "#E8E8E8",
-    borderRadius: 16,
-    borderWidth: 1,
-    backgroundColor: "#F6F6F6",
-  },
-  plus: {
-    position: "absolute",
-    backgroundColor: "#FFF",
-    height: 25,
-    width: 25,
-    borderWidth: 1,
-    borderRadius: 12.5,
-    borderColor: "#FF6C00",
-
-    bottom: 20,
-    right: -12.5,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  plusPic: {
-    justifyContent: "center",
-    alignItems: "center",
   },
 
+  titlePosition: {
+    marginTop: 80,
+    alignItems: "center",
+    marginBottom: 30,
+  },
   title: {
     fontFamily: "Roboto-500",
     fontSize: 30,
     fontWeight: "500",
   },
-  input: {
+  inputBox: {
     marginBottom: 16,
+    paddingRight: 18,
+    paddingLeft: 18,
+  },
+  input: {
     paddingRight: 18,
     paddingLeft: 18,
     borderColor: "#E8E8E8",
     borderRadius: 8,
-    borderWidth: 1,
+    borderWidth: 2,
     backgroundColor: "#F6F6F6",
-    width: "91%",
     height: 50,
-  },
-  inputPassword: {
-    top: 9,
   },
   btn: {
     backgroundColor: "#FF6C00",
     height: 50,
-    width: "91%",
-    borderRadius: 25,
-    marginTop: 40,
+    borderRadius: 8, //25,
+    marginTop: 20,
     marginBottom: 16,
     justifyContent: "center",
     alignItems: "center",
@@ -216,17 +195,20 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   indicator: {
-    marginTop: 46,
+    marginTop: 36,
     width: 134,
     height: 5,
     backgroundColor: "#212121",
     marginBottom: 7,
   },
+  input2: {
+    alignItems: "center",
+  },
   input_btn: {
     position: "absolute",
 
-    top: 10,
-    right: 16,
+    top: 11,
+    right: 30,
   },
   input__text: {
     fontSize: 14,
