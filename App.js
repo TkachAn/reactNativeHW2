@@ -42,7 +42,7 @@ export default function App() {
   }
   //
   onAuthStateChanged(auth, (user) => setUser(user));
-  const routing = useRoute(user);
+  const routing = useRoute(0);
   //
   return (
     <>
