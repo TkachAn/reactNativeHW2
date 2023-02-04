@@ -7,8 +7,9 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {Feather} from "@expo/vector-icons";
 import {Ionicons} from "@expo/vector-icons";
 //
+
 //
-// import {authSignOut} from "./redux/authorization/authOperations";
+import {authSignOut} from "./redux/authorization/authOperations";
 //
 import LoginScreen from "./screens/auth/login";
 import RegisterScreen from "./screens/auth/regist";
@@ -22,7 +23,9 @@ const AuthStack = createStackNavigator();
 const MainTab = createBottomTabNavigator();
 //
 export const useRoute = (isAuth) => {
+  // const dispatch = useDispatch();
   const outButtonAlert = () => {
+    // dispatch(authSignOut());
     // const dispatch = useDispatch();
     Alert.alert("На ВЫХОД с вещями", "до Свидапия!", [
       {
@@ -30,7 +33,13 @@ export const useRoute = (isAuth) => {
         onPress: () => console.log("Cancel Pressed"),
         style: "cancel",
       },
-      {text: "OK", onPress: () => console.log("OK Pressed")}, //authSignOut()}, //
+      {
+        text: "OK",
+        onPress: () => {
+          console.log("OK Pressed");
+          // dispatch(authSignOut());
+        },
+      }, //authSignOut()}, //
     ]);
   };
   if (!isAuth) {
