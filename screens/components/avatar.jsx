@@ -1,42 +1,63 @@
 import React, {useState, useEffect} from "react";
+import {Dimensions} from "react-native";
 import {StyleSheet, View, Image, TouchableOpacity} from "react-native";
 import {Feather} from "@expo/vector-icons";
-// import {Feather, EvilIcons, AntDesign} from "@expo/vector-icons";
+//
+const widthScreen = Dimensions.get("window").width;
 //
 export default function Avatar({pic, press}) {
   const [icon, setIcon] = useState("");
-  const [src, setSrc] = useState("");
+  //
   useEffect(() => {
     if (!pic) {
       setIcon("plus");
-      setSrc("https://reactnative.dev/img/tiny_logo.png");
     } else {
       setIcon("x");
-      setSrc(pic);
     }
   }, []);
-  console.log("pic:", pic);
-
-  console.log("icon:", icon);
+  // console.log("pic:", pic);
+  // console.log("icon:", icon);
   return (
-    <View style={styles.picBox}>
-      <Image
-        source={{
-          uri: src,
-        }}
-        style={{width: 120, height: 120}}
-      />
-      <TouchableOpacity onPress={press} style={styles.plus} activeOpacity={0.8}>
-        <View style={styles.plusPic}>
-          <Feather name={icon} size={24} color="#FF6C00" />
-        </View>
-      </TouchableOpacity>
+    <View style={styles.avatar}>
+      <View style={styles.picBox}>
+        {pic ? (
+          <Image
+            source={{
+              uri: pic,
+            }}
+            style={{width: 120, height: 120}}
+          />
+        ) : (
+          <Image
+            source={require("../../assets/adaptive-icon.png")}
+            style={{width: 120, height: 120}}
+          />
+        )}
+        <TouchableOpacity
+          onPress={press}
+          style={styles.plus}
+          activeOpacity={0.8}
+        >
+          <View style={styles.plusPic}>
+            <Feather name={icon} size={24} color="#FF6C00" />
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
 //
 const styles = StyleSheet.create({
+  avatar: {
+    position: "relative",
+    backgroundColor: "#fff",
+    height: 60,
+    width: widthScreen,
+    alignItems: "center",
+  },
   picBox: {
+    position: "absolute",
+    top: -60,
     width: 120,
     height: 120,
     borderColor: "#E8E8E8",
