@@ -5,116 +5,53 @@ import {
   Text,
   View,
   ImageBackground,
-  TextInput,
-  TouchableOpacity,
-  Platform,
-  KeyboardAvoidingView,
   Keyboard,
+  TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
 //
 import {authSignIn} from "../../redux/authorization/authOperations";
+import Form from "../components/form";
 //
-const initialState = {
-  email: "",
-  password: "",
-};
+
 //
 console.log("LoginScreen!");
 //
-export default function LoginScreen({navigation}, {onClick}) {
-  const [isShowKeyboard, setIsShowKeyboard] = useState(false);
-  const [state, setstate] = useState(initialState);
-  const [isShowPassword, setIsShowPassword] = useState(true);
-  // const {userId} = route.params;
+export default function LoginScreen({navigation}) {
+  //
   const dispatch = useDispatch();
-  // console.log("userId", userId);
-  const handleSubmit = () => {
+  //
+  const handleSubmit = (data) => {
     Keyboard.dismiss();
-    setstate(initialState);
-    console.log("state", state);
-    if (state.email !== "" && state.password !== "") {
-      dispatch(authSignIn(state));
-      setIsShowKeyboard(false);
-      setIsShowPassword(true);
-      onClick = 1;
+    console.log("data:", data);
+    if (data) {
+      dispatch(authSignIn(data));
     }
   };
-  // console.log("onClick:", onClick);
-  const showPassword = () => setIsShowPassword(!isShowPassword);
+  //
+  const handleBG = () => {
+    Keyboard.dismiss();
+  };
+  //
   return (
     <View style={styles.container}>
-      <TouchableWithoutFeedback onPress={handleSubmit}>
+      <TouchableWithoutFeedback onPress={handleBG}>
         <ImageBackground
           style={styles.image}
           source={require("../../assets/imgBgReg.png")}
         >
-          <View>
-            <KeyboardAvoidingView
-              behavior={Platform.OS == "ios" ? "padding" : "height"}
+          <Form title="ВОЙТИ" handleClick={handleSubmit} login={false} />
+          <View style={styles.footer}>
+            <TouchableOpacity
+              style={styles.link}
+              onPress={() => navigation.navigate("RegisterScreen")}
             >
-              <View style={styles.formBox}>
-                <Text
-                  style={{
-                    ...styles.title,
-                    marginBottom: isShowKeyboard ? 10 : 33,
-                    marginTop: isShowKeyboard ? 10 : 32,
-                  }}
-                >
-                  Войти
-                </Text>
+              <Text style={styles.link__text}>
+                Нет аккаунта? Зарегистрироваться
+              </Text>
+            </TouchableOpacity>
 
-                <TextInput
-                  keyboardType="email-address"
-                  style={styles.input}
-                  placeholder="Адрес электронной почты "
-                  onFocus={() => setIsShowKeyboard(true)}
-                  value={state.email}
-                  onChangeText={(value) =>
-                    setstate((prevState) => ({...prevState, email: value}))
-                  }
-                />
-                <View style={styles.input}>
-                  <TextInput
-                    style={styles.inputPassword}
-                    placeholder="Пароль"
-                    onFocus={() => setIsShowKeyboard(true)}
-                    secureTextEntry={isShowPassword}
-                    value={state.password}
-                    onChangeText={(value) =>
-                      setstate((prevState) => ({...prevState, password: value}))
-                    }
-                  />
-                  <TouchableOpacity
-                    style={styles.input_btn}
-                    onPress={showPassword}
-                  >
-                    <Text style={styles.input__text}>Показать</Text>
-                  </TouchableOpacity>
-                </View>
-                <TouchableOpacity
-                  style={{...styles.btn, marginTop: isShowKeyboard ? 0 : 40}}
-                  onPress={handleSubmit}
-                  activeOpacity={0.8}
-                >
-                  <Text style={styles.btnTitle}>Войти</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.link}
-                  onPress={() => navigation.navigate("RegisterScreen")}
-                >
-                  <Text style={styles.link__text}>
-                    Нет аккаунта? Зарегистрироваться
-                  </Text>
-                </TouchableOpacity>
-                <View
-                  style={{
-                    ...styles.indicator,
-                    marginTop: isShowKeyboard ? 10 : 46,
-                  }}
-                ></View>
-              </View>
-            </KeyboardAvoidingView>
+            <View style={styles.indicator}></View>
           </View>
         </ImageBackground>
       </TouchableWithoutFeedback>
@@ -176,6 +113,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   indicator: {
+    alignItems: "center",
     marginTop: 46,
     width: 134,
     height: 5,
@@ -199,4 +137,80 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
   },
+  indicator: {
+    marginTop: 36,
+    width: 134,
+    height: 5,
+    backgroundColor: "#212121",
+    marginBottom: 7,
+  },
+  footer: {
+    alignItems: "center",
+    backgroundColor: "#fff",
+  },
 });
+//
+{
+  /* <View>
+            <KeyboardAvoidingView
+              behavior={Platform.OS == "ios" ? "padding" : "height"}
+            >
+              <View style={styles.formBox}>
+                <Text
+                  style={{
+                    ...styles.title,
+                    marginBottom: isShowKeyboard ? 10 : 33,
+                    marginTop: isShowKeyboard ? 10 : 32,
+                  }}
+                >
+                  Войти
+                </Text>
+
+                <TextInput
+                  keyboardType="email-address"
+                  style={styles.input}
+                  placeholder="Адрес электронной почты "
+                  onFocus={() => setIsShowKeyboard(true)}
+                  value={state.email}
+                  onChangeText={(value) =>
+                    setstate((prevState) => ({...prevState, email: value}))
+                  }
+                />
+                <View style={styles.input}>
+                  <TextInput
+                    style={styles.inputPassword}
+                    placeholder="Пароль"
+                    onFocus={() => setIsShowKeyboard(true)}
+                    secureTextEntry={isShowPassword}
+                    value={state.password}
+                    onChangeText={(value) =>
+                      setstate((prevState) => ({...prevState, password: value}))
+                    }
+                  />
+                  <TouchableOpacity
+                    style={styles.input_btn}
+                    onPress={showPassword}
+                  >
+                    <Text style={styles.input__text}>Показать</Text>
+                  </TouchableOpacity>
+                </View>
+                <TouchableOpacity
+                  style={{...styles.btn, marginTop: isShowKeyboard ? 0 : 40}}
+                  onPress={handleSubmit}
+                  activeOpacity={0.8}
+                >
+                  <Text style={styles.btnTitle}>Войти</Text>
+                </TouchableOpacity>
+              </View>
+            </KeyboardAvoidingView>
+          </View> */
+}
+
+{
+  /* <View
+            style={{
+              ...styles.indicator,
+              marginTop: isShowKeyboard ? 10 : 46,
+            }}
+          ></View> */
+}
