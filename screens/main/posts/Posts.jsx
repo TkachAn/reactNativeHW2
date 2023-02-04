@@ -15,7 +15,7 @@ const PostsScreen = () => {
         name="DefaultPosts"
         component={DefaultPosts}
         options={{
-          title: "Публикации",
+          title: "Публикации!!!",
           headerShown: false,
         }}
       />
