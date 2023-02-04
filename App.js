@@ -42,16 +42,14 @@ export default function App() {
   }
   //
   onAuthStateChanged(auth, (user) => setUser(user));
-  const routing = useRoute(0);
+  const routing = useRoute(user);
   //
   return (
-    <>
-      <Provider store={store}>
-        <StatusBar style="auto" />
-        <NavigationContainer onLayout={onLayoutRootView}>
-          {routing}
-        </NavigationContainer>
-      </Provider>
-    </>
+    <Provider store={store}>
+      <StatusBar style="auto" />
+      <NavigationContainer onLayout={onLayoutRootView}>
+        {routing}
+      </NavigationContainer>
+    </Provider>
   );
 }
