@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {
   View,
   StyleSheet,
@@ -8,13 +9,20 @@ import {
   SafeAreaView,
 } from "react-native";
 //
+import {getLogin, getEmail} from "../../redux/authorization/selectors";
+//
 import {Item} from "../main/components/itemPic";
 //
 console.log("DefaultPostsScreen!");
+
 //
 const DefaultPosts = ({route, navigation}) => {
   const [posts, setPosts] = useState([]);
-
+  // const userId = useSelector(getUserId);
+  const login = useSelector((state) => state.auth.login);
+  const email = useSelector(getEmail);
+  console.log("login:!", (state) => state.auth.login);
+  const dispatch = useDispatch();
   useEffect(() => {
     if (route.params) {
       setPosts((prevState) => [...prevState, route.params]);
@@ -39,7 +47,7 @@ const DefaultPosts = ({route, navigation}) => {
           />
         </View>
         <View style={styles.nameContainer}>
-          <Text style={styles.name}>"Natali Romanoff"</Text>
+          <Text style={styles.name}>{login}</Text>
           <Text style={styles.email}>"natali@romanoff.com"</Text>
         </View>
       </View>
