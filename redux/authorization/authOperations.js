@@ -12,6 +12,7 @@ console.log("Operations!");
 const authSignUp =
   ({login, email, password}) =>
   async (dispatch, getState) => {
+    // console.log("userAuth:", login, email, password);
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(auth.currentUser, {
@@ -21,8 +22,8 @@ const authSignUp =
       console.log("authSignUp user:", user);
       dispatch(authSlice.actions.updateUserProfile(user));
     } catch (error) {
-      console.log("error", error);
-      console.log("error.message", error.message);
+      console.log("error:", error);
+      // console.log("error.message:", error.message);
     }
   };
 //
@@ -39,7 +40,8 @@ const authSignIn =
   };
 //
 const authSignOut = () => async (dispatch, getState) => {
-  const user = await signOut(auth);
+  await signOut(auth);
+  dispatch(authSignOut());
 };
 
 export {authSignIn, authSignUp, authSignOut};
