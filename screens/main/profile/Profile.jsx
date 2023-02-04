@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {
   StyleSheet,
   Text,
@@ -9,19 +10,33 @@ import {
   FlatList,
   SafeAreaView,
 } from "react-native";
+import {getLogin, getUserId} from "../../../redux/authorization/selectors";
 import {Item} from "../../main/components/itemPic";
+//
+const initialState = {
+  avatar: "", //https://reactnative.dev/docs/assets/p_cat2.png
+};
+//
+import Avatar from "../../components/avatar";
 //
 console.log("ProfileScreen!");
 //
 const ProfileScreen = ({route, navigation}) => {
   const [posts, setPosts] = useState([]);
-
+  const [state, setState] = useState(initialState);
+  //
+  const login = useSelector(getLogin);
+  //
   useEffect(() => {
     if (route.params) {
       setPosts((prevState) => [...prevState, route.params]);
     }
   }, []);
-
+  //
+  const addPic = () => {
+    console.log("add Pic");
+  };
+  //
   const renderItem = ({item}) => (
     <Item
       navigation={navigation}
@@ -31,6 +46,7 @@ const ProfileScreen = ({route, navigation}) => {
       currentLocation={item.currentLocation}
     />
   );
+  //
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -38,22 +54,9 @@ const ProfileScreen = ({route, navigation}) => {
         source={require("../../../assets/imgBgReg.png")}
       >
         <View>
+          <Avatar pic={state.avatar} press={addPic} />
           <View style={styles.formBox}>
-            <View style={styles.picBox}>
-              <Image
-                source={require("../../../assets/adaptive-icon.png")}
-                style={{width: 120, height: 120}}
-              />
-              <TouchableOpacity style={styles.plus} activeOpacity={0.8}>
-                <View>
-                  <Image
-                    style={styles.plusPic}
-                    source={require("../../../assets/plusOnly.png")}
-                  />
-                </View>
-              </TouchableOpacity>
-            </View>
-            <Text style={styles.title}>Natali Romanoff</Text>
+            <Text style={styles.title}> {login} </Text>
             <SafeAreaView style={styles.container}>
               <FlatList
                 data={posts}
@@ -81,40 +84,12 @@ const styles = StyleSheet.create({
 
   formBox: {
     alignItems: "center",
-    borderRadius: 25,
+    // borderRadius: 25,
     backgroundColor: "#fff",
-  },
-  picBox: {
-    position: "absolute",
-    top: -60,
-    width: 120,
-    height: 120,
-    borderColor: "#E8E8E8",
-    borderRadius: 16,
-    borderWidth: 1,
-    backgroundColor: "#F6F6F6",
-  },
-  plus: {
-    position: "absolute",
-    backgroundColor: "#FFF",
-    height: 25,
-    width: 25,
-    borderWidth: 1,
-    borderRadius: 12.5,
-    borderColor: "#FF6C00",
-
-    bottom: 20,
-    right: -12.5,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  plusPic: {
-    justifyContent: "center",
-    alignItems: "center",
   },
 
   title: {
-    marginTop: 92,
+    marginTop: 30,
     fontFamily: "Roboto-500",
     fontSize: 30,
     fontWeight: "500",
