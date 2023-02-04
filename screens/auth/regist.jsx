@@ -5,128 +5,55 @@ import {
   Text,
   View,
   ImageBackground,
-  TextInput,
-  TouchableOpacity,
-  Platform,
-  KeyboardAvoidingView,
   Keyboard,
+  TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
 import {authSignUp} from "../../redux/authorization/authOperations";
 import Avatar from "../components/avatar";
+import Form from "../components/form";
 //
 const initialState = {
-  login: "",
-  email: "",
-  password: "",
-  avatar: "https://reactnative.dev/docs/assets/p_cat2.png",
+  avatar: "", //https://reactnative.dev/docs/assets/p_cat2.png
 };
 console.log("RegisterScreen");
 export default function RegisterScreen({navigation}) {
-  const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setstate] = useState(initialState);
-  const [isShowPassword, setIsShowPassword] = useState(true);
   //
   const dispatch = useDispatch();
   //
-  const handleSubmit = () => {
+  const handleSubmit = (data) => {
     Keyboard.dismiss();
-    setstate(initialState);
-    console.log(state);
-    if (state) {
-      dispatch(authSignUp(state));
+    console.log("data:", data);
+    if (data) {
+      dispatch(authSignUp(data));
     }
-    setIsShowKeyboard(false);
-    setIsShowPassword(true);
   };
-  const showPassword = () => setIsShowPassword(!isShowPassword);
   const addPic = () => {
     console.log("add Pic");
   };
+  //
+  const handleBG = () => {
+    Keyboard.dismiss();
+  };
+  //
   return (
     <View style={styles.container}>
-      <TouchableWithoutFeedback onPress={handleSubmit}>
+      <TouchableWithoutFeedback onPress={handleBG}>
         <ImageBackground
           style={styles.imageBG}
           source={require("../../assets/imgBgReg.png")}
         >
-          <View style={styles.containerForm}>
-            <View style={styles.avatarPosition}>
-              <View style={styles.avatarBox}>
-                <Avatar pic={state.avatar} press={addPic} />
-              </View>
-            </View>
-
-            <View style={styles.titlePosition}>
-              <Text style={styles.title}>Регистраця</Text>
-            </View>
-            <KeyboardAvoidingView
-              behavior={Platform.OS == "ios" ? "padding" : "height"}
+          <Avatar pic={state.avatar} press={addPic} />
+          <Form title="РЕГИСТРАЦИЯ" handleClick={handleSubmit} />
+          <View style={styles.footer}>
+            <TouchableOpacity
+              style={styles.link}
+              onPress={() => navigation.navigate("LoginScreen")}
             >
-              <View>
-                <View style={styles.inputBox}>
-                  <TextInput
-                    keyboardType="email-address"
-                    style={styles.input}
-                    placeholder="Логин"
-                    onFocus={() => setIsShowKeyboard(true)}
-                    value={state.login}
-                    onChangeText={(value) =>
-                      setstate((prevState) => ({...prevState, login: value}))
-                    }
-                  />
-                </View>
-                <View style={styles.inputBox}>
-                  <TextInput
-                    keyboardType="email-address"
-                    style={styles.input}
-                    placeholder="Адрес электронной почты "
-                    onFocus={() => setIsShowKeyboard(true)}
-                    value={state.email}
-                    onChangeText={(value) =>
-                      setstate((prevState) => ({...prevState, email: value}))
-                    }
-                  />
-                </View>
-                <View style={styles.inputBox}>
-                  <TextInput
-                    style={styles.input}
-                    // keyboardType="email-address"
-                    placeholder="Пароль"
-                    onFocus={() => setIsShowKeyboard(true)}
-                    secureTextEntry={isShowPassword}
-                    value={state.password}
-                    onChangeText={(value) =>
-                      setstate((prevState) => ({...prevState, password: value}))
-                    }
-                  />
-                  <TouchableOpacity
-                    style={styles.input_btn}
-                    onPress={showPassword}
-                  >
-                    <Text style={styles.input__text}>Показать</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-              <View>
-                <TouchableOpacity
-                  style={styles.btn}
-                  onPress={handleSubmit}
-                  activeOpacity={0.8}
-                >
-                  <Text style={styles.btnTitle}>Зарегистрироваться</Text>
-                </TouchableOpacity>
-              </View>
-            </KeyboardAvoidingView>
-            <View style={styles.input2}>
-              <TouchableOpacity
-                style={styles.link}
-                onPress={() => navigation.navigate("LoginScreen")}
-              >
-                <Text style={styles.link__text}>Уже есть аккаунт? Войти</Text>
-              </TouchableOpacity>
-              <View style={styles.indicator}></View>
-            </View>
+              <Text style={styles.link__text}>Уже есть аккаунт? Войти</Text>
+            </TouchableOpacity>
+            <View style={styles.indicator}></View>
           </View>
         </ImageBackground>
       </TouchableWithoutFeedback>
@@ -146,17 +73,9 @@ const styles = StyleSheet.create({
   containerForm: {
     backgroundColor: "#fff",
   },
-  avatarPosition: {
-    position: "relative",
-    alignItems: "center",
-  },
-  avatarBox: {
-    position: "absolute",
-    top: -60,
-  },
 
   titlePosition: {
-    marginTop: 80,
+    marginTop: 30,
     alignItems: "center",
     marginBottom: 30,
   },
@@ -201,8 +120,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#212121",
     marginBottom: 7,
   },
-  input2: {
+  footer: {
     alignItems: "center",
+    backgroundColor: "#fff",
   },
   input_btn: {
     position: "absolute",
