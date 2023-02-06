@@ -18,7 +18,7 @@ const initialState = {
 };
 console.log("RegisterScreen");
 export default function RegisterScreen({navigation}) {
-  const [state, setstate] = useState(initialState);
+  const [state, setState] = useState(initialState);
   //
   const dispatch = useDispatch();
   //
@@ -27,6 +27,11 @@ export default function RegisterScreen({navigation}) {
     console.log("data:", data);
     if (data) {
       dispatch(authSignUp(data));
+      dispatch(
+        updateUserProfile({
+          data,
+        })
+      );
     }
   };
   const addPic = () => {
