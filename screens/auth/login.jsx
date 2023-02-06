@@ -10,6 +10,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 //
+import {updateUserProfile} from "../../redux/authorization/authSlice";
 import {authSignIn} from "../../redux/authorization/authOperations";
 import Form from "../components/form";
 //
@@ -26,6 +27,7 @@ export default function LoginScreen({navigation}) {
     console.log("data:", data);
     if (data) {
       dispatch(authSignIn(data));
+      // dispatch(updateUserProfile(data));
     }
   };
   //
