@@ -35,7 +35,7 @@ const authSignIn =
   async (dispatch, getState) => {
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
-      console.log("user", auth.currentUser.displayName);
+      console.log("!user:", auth.currentUser.displayName);
     } catch (error) {
       // console.log("error", error);
       console.log("error message In!", error.message);
