@@ -10,8 +10,14 @@ import {
   FlatList,
   SafeAreaView,
 } from "react-native";
-import {getLogin, getUserId} from "../../../redux/authorization/selectors";
-import {Item} from "../../main/components/itemPic";
+import {Feather} from "@expo/vector-icons";
+import {
+  getLogin,
+  getUserId,
+  getEmail,
+} from "../../../redux/authorization/selectors";
+import {authSignOut} from "../../../redux/authorization/authOperations";
+import {Item} from "../../components/itemPic";
 //
 const initialState = {
   avatar: "", //https://reactnative.dev/docs/assets/p_cat2.png
@@ -20,13 +26,19 @@ const initialState = {
 import Avatar from "../../components/avatar";
 //
 console.log("ProfileScreen!");
+
 //
 const ProfileScreen = ({route, navigation}) => {
   const [posts, setPosts] = useState([]);
   const [state, setState] = useState(initialState);
   //
-  const login = useSelector(getLogin);
+  const dispatch = useDispatch();
   //
+  const login = useSelector(getLogin);
+  console.log("log!", login);
+  const email = useSelector(getEmail);
+  console.log("email!", email);
+  //getEmail
   useEffect(() => {
     if (route.params) {
       setPosts((prevState) => [...prevState, route.params]);
@@ -47,6 +59,17 @@ const ProfileScreen = ({route, navigation}) => {
     />
   );
   //
+  const signOut = () => {
+    dispatch(authSignOut());
+  };
+  //
+  const stat = useSelector((state) => state.auth);
+  console.log("state", stat);
+  const au = useSelector((auth) => auth.auth);
+  console.log("auth", au);
+  const sta = useSelector(getEmail);
+  console.log("state", sta);
+  //
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -55,7 +78,15 @@ const ProfileScreen = ({route, navigation}) => {
       >
         <View>
           <Avatar pic={state.avatar} press={addPic} />
+
           <View style={styles.formBox}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={styles.btnEx}
+              onPress={signOut}
+            >
+              <Feather name="log-out" size={24} color="#BDBDBD" />
+            </TouchableOpacity>
             <Text style={styles.title}> {login} </Text>
             <SafeAreaView style={styles.container}>
               <FlatList
@@ -108,6 +139,9 @@ const styles = StyleSheet.create({
   },
   inputPass: {
     top: 9,
+  },
+  btnEx: {
+    marginTop: 20,
   },
   btn: {
     backgroundColor: "#FF6C00",
