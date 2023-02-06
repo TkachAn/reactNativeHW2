@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import {useDispatch} from "react-redux";
 import {
   StyleSheet,
   Text,
@@ -11,20 +10,36 @@ import {
   Keyboard,
 } from "react-native";
 //
-const initialState = {
+const initialStateUp = {
   login: "",
   email: "",
   password: "",
 };
+const initialStateIn = {
+  email: "",
+  password: "",
+};
 console.log("form");
-export default function Form({title, handleClick, login = true, email = true}) {
+export default function Form({
+  title,
+  handleClick,
+  isLogin = true,
+  isEmail = true,
+}) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
-  const [state, setState] = useState(initialState);
+  const [state, setState] = isLogin
+    ? useState(initialStateUp)
+    : useState(initialStateIn);
   const [isShowPassword, setIsShowPassword] = useState(true);
   //
+
   const handleSubmit = () => {
     Keyboard.dismiss();
-    setState(initialState);
+    if (!isLogin) {
+      setState(initialStateIn);
+    } else {
+      setState(initialStateUp);
+    }
     console.log(state);
     handleClick(state);
     setIsShowKeyboard(false);
@@ -46,7 +61,7 @@ export default function Form({title, handleClick, login = true, email = true}) {
         behavior={Platform.OS == "ios" ? "padding" : "height"}
       >
         <View>
-          {login && (
+          {isLogin && (
             <View style={styles.inputBox}>
               <TextInput
                 keyboardType="email-address"
@@ -60,7 +75,7 @@ export default function Form({title, handleClick, login = true, email = true}) {
               />
             </View>
           )}
-          {email && (
+          {isEmail && (
             <View style={styles.inputBox}>
               <TextInput
                 keyboardType="email-address"
