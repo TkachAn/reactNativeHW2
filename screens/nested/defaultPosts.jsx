@@ -11,18 +11,19 @@ import {
 //
 import {getLogin, getEmail} from "../../redux/authorization/selectors";
 //
-import {Item} from "../main/components/itemPic";
+import {Item} from "../components/itemPic";
 //
 console.log("DefaultPostsScreen!");
 
 //
 const DefaultPosts = ({route, navigation}) => {
+  const dispatch = useDispatch();
   const [posts, setPosts] = useState([]);
   // const userId = useSelector(getUserId);
   const login = useSelector((state) => state.auth.login);
   const email = useSelector(getEmail);
-  console.log("login:!", (state) => state.auth.login);
-  const dispatch = useDispatch();
+  console.log("login:!", login);
+
   useEffect(() => {
     if (route.params) {
       setPosts((prevState) => [...prevState, route.params]);
