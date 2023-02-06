@@ -5,7 +5,6 @@ import {
   Text,
   View,
   ImageBackground,
-  Image,
   TouchableOpacity,
   FlatList,
   SafeAreaView,
@@ -15,6 +14,7 @@ import {
   getLogin,
   getUserId,
   getEmail,
+  getAvatar,
 } from "../../../redux/authorization/selectors";
 import {authSignOut} from "../../../redux/authorization/authOperations";
 import {Item} from "../../components/itemPic";
@@ -88,6 +88,7 @@ const ProfileScreen = ({route, navigation}) => {
               <Feather name="log-out" size={24} color="#BDBDBD" />
             </TouchableOpacity>
             <Text style={styles.title}> {login} </Text>
+            <Text style={styles.email}> {email} </Text>
             <SafeAreaView style={styles.container}>
               <FlatList
                 data={posts}
@@ -118,12 +119,17 @@ const styles = StyleSheet.create({
     // borderRadius: 25,
     backgroundColor: "#fff",
   },
-
   title: {
     marginTop: 30,
     fontFamily: "Roboto-500",
     fontSize: 30,
     fontWeight: "500",
+    marginBottom: 16,
+  },
+  email: {
+    fontFamily: "Roboto-400",
+    fontSize: 20,
+    // fontWeight: "500",
     marginBottom: 16,
   },
   input: {
