@@ -2,11 +2,10 @@ import {createSlice} from "@reduxjs/toolkit";
 //
 const initialState = {
   userId: null,
-  // nickName: null,
-  stateChange: null,
+  stateChange: false,
   login: null,
   email: null,
-  // token: null,
+  avatar: null,
 };
 //
 console.log("AuthReducsr");
@@ -17,9 +16,13 @@ export const authSlice = createSlice({
   reducers: {
     updateUserProfile: (state, {payload}) => ({
       ...state,
-      userId: payload.uid,
-      login: payload.displayName,
+      // userId: payload.uid,
+      // login: payload.displayName,
+      userId: payload.userId,
+      login: payload.login,
+      //
       email: payload.email,
+      avatar: payload.avatar,
     }),
     authStateChange: (state, {payload}) => ({
       ...state,
