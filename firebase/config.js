@@ -1,12 +1,6 @@
 import {initializeApp} from "firebase/app";
-import {
-  browserSessionPersistence,
-  getAuth,
-  setPersistence,
-} from "firebase/auth";
-// import {getFirestore} from "firebase/firestore";
-// import "firebase/firestore";
-// import "firebase/storage";
+import {getAuth} from "firebase/auth";
+
 //
 console.log("Config!");
 
