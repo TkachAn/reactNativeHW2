@@ -35,14 +35,14 @@ export default function Form({
 
   const handleSubmit = () => {
     Keyboard.dismiss();
+    setIsShowKeyboard(false);
     if (!isLogin) {
       setState(initialStateIn);
     } else {
       setState(initialStateUp);
     }
-    console.log(state);
+    console.log("handleSubmit", state);
     handleClick(state);
-    setIsShowKeyboard(false);
     setIsShowPassword(false);
   };
   const showPassword = () => setIsShowPassword(!isShowPassword);
