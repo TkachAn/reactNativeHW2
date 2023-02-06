@@ -21,12 +21,7 @@ export default function Avatar({pic, press}) {
     <View style={styles.avatar}>
       <View style={styles.picBox}>
         {pic ? (
-          <Image
-            source={{
-              uri: pic,
-            }}
-            style={{width: 120, height: 120}}
-          />
+          <Image source={{uri: pic}} style={{width: 120, height: 120}} />
         ) : (
           <Image
             source={require("../../assets/adaptive-icon.png")}
