@@ -9,7 +9,11 @@ import {
   SafeAreaView,
 } from "react-native";
 //
-import {getLogin, getEmail} from "../../redux/authorization/selectors";
+import {
+  getLogin,
+  getEmail,
+  getUserId,
+} from "../../redux/authorization/selectors";
 //
 import {Item} from "../components/itemPic";
 //
@@ -19,10 +23,9 @@ console.log("DefaultPostsScreen!");
 const DefaultPosts = ({route, navigation}) => {
   const dispatch = useDispatch();
   const [posts, setPosts] = useState([]);
-  // const userId = useSelector(getUserId);
-  const login = useSelector((state) => state.auth.login);
+  const userId = useSelector(getUserId);
+  const login = useSelector(getLogin);
   const email = useSelector(getEmail);
-  console.log("login:!", login);
 
   useEffect(() => {
     if (route.params) {
@@ -49,7 +52,7 @@ const DefaultPosts = ({route, navigation}) => {
         </View>
         <View style={styles.nameContainer}>
           <Text style={styles.name}>{login}</Text>
-          <Text style={styles.email}>"natali@romanoff.com"</Text>
+          <Text style={styles.email}>{email}</Text>
         </View>
       </View>
       <FlatList
