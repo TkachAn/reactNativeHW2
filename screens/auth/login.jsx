@@ -40,7 +40,7 @@ export default function LoginScreen({navigation}) {
           style={styles.image}
           source={require("../../assets/imgBgReg.png")}
         >
-          <Form title="ВОЙТИ" handleClick={handleSubmit} login={false} />
+          <Form title="ВОЙТИ" handleClick={handleSubmit} isLogin={false} />
           <View style={styles.footer}>
             <TouchableOpacity
               style={styles.link}
