@@ -16,6 +16,7 @@ import RegisterScreen from "./screens/auth/regist";
 import PostsScreen from "./screens/main/posts/Posts";
 import CreatePost from "./screens/main/createPost/CreatePosts";
 import ProfileScreen from "./screens/main/profile/Profile";
+import {Confirm} from "./screens/components/confirm";
 //
 console.log("Routing!");
 //
@@ -25,6 +26,8 @@ const MainTab = createBottomTabNavigator();
 export const useRoute = (isAuth) => {
   // const dispatch = useDispatch();
   const outButtonAlert = () => {
+    // Alert.alert("Хочешь ПРОДОЛЖИТЬ? жми OK", console.log("Я сделал ЭТО!!!"));
+    // Confirm("Хочешь ПРОДОЛЖИТЬ? жми OK", console.log("Я сделал ЭТО!!!"));
     // dispatch(authSignOut());
     // const dispatch = useDispatch();
     Alert.alert("На ВЫХОД с вещями", "до Свидапия!", [
