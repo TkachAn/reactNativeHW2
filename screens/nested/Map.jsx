@@ -30,7 +30,7 @@ const Maps = ({route}) => {
       >
         {location && (
           <Marker
-            title="I am here"
+            title="I am Groote"
             coordinate={location}
             description="Hello!"
           />
