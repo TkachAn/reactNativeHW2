@@ -1,6 +1,6 @@
-import React from "react";
+// import React from "react";
 import {useDispatch} from "react-redux";
-import {StyleSheet, View, Alert} from "react-native";
+import {StyleSheet, View} from "react-native";
 import {createStackNavigator} from "@react-navigation/stack";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 //
@@ -16,7 +16,7 @@ import RegisterScreen from "./screens/auth/regist";
 import PostsScreen from "./screens/main/posts/Posts";
 import CreatePost from "./screens/main/createPost/CreatePosts";
 import ProfileScreen from "./screens/main/profile/Profile";
-import {Confirm} from "./screens/components/confirm";
+// import {Confirm} from "./screens/components/confirm";
 //
 console.log("Routing!");
 //
@@ -25,26 +25,7 @@ const MainTab = createBottomTabNavigator();
 //
 export const useRoute = (isAuth) => {
   // const dispatch = useDispatch();
-  const outButtonAlert = () => {
-    // Alert.alert("Хочешь ПРОДОЛЖИТЬ? жми OK", console.log("Я сделал ЭТО!!!"));
-    // Confirm("Хочешь ПРОДОЛЖИТЬ? жми OK", console.log("Я сделал ЭТО!!!"));
-    // dispatch(authSignOut());
-    // const dispatch = useDispatch();
-    Alert.alert("На ВЫХОД с вещями", "до Свидапия!", [
-      {
-        text: "Cancel",
-        onPress: () => console.log("Cancel Pressed"),
-        style: "cancel",
-      },
-      {
-        text: "OK",
-        onPress: () => {
-          console.log("OK Pressed");
-          // dispatch(authSignOut());
-        },
-      }, //authSignOut()}, //
-    ]);
-  };
+
   if (!isAuth) {
     return (
       <AuthStack.Navigator>
@@ -67,6 +48,15 @@ export const useRoute = (isAuth) => {
   }
   return (
     //
+    // <AuthStack.Navigator>
+    //   <AuthStack.Screen
+    //     options={{
+    //       headerShown: false,
+    //     }}
+    //     name="Home"
+    //     component={Home}
+    //   />
+    // </AuthStack.Navigator>
     <MainTab.Navigator
       screenOptions={{
         headerTitleAlign: "center",
@@ -93,19 +83,11 @@ export const useRoute = (isAuth) => {
         name="PostsScreen"
         component={PostsScreen}
         options={{
+          headerShown: false,
           tabBarIcon: ({focused, size, color}) => (
             <Feather name="grid" size={size} color={color} />
           ),
           title: "Публикации!",
-          headerRight: ({color}) => (
-            <Ionicons
-              style={{marginRight: 20}}
-              name="exit-outline"
-              size={24}
-              color={color}
-              onPress={() => outButtonAlert()}
-            />
-          ),
         }}
       />
       <MainTab.Screen
