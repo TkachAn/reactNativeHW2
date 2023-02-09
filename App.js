@@ -1,3 +1,6 @@
+// import * as dotenv from "dotenv"; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+// dotenv.config();
+// import express from "express";
 import React, {useState, useCallback} from "react";
 import {Platform, Dimensions} from "react-native";
 import {NavigationContainer} from "@react-navigation/native";
@@ -6,7 +9,8 @@ import {StatusBar} from "expo-status-bar";
 import {useFonts} from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 //
-import {Provider} from "react-redux";
+import {Provider, useDispatch} from "react-redux";
+
 //
 import {onAuthStateChanged} from "firebase/auth";
 import {auth} from "./firebase/config";
@@ -21,6 +25,7 @@ console.log("Platform:", Platform.OS);
 console.log("width screen:", widthScreen.toFixed(0));
 console.log("height screen:", heightScreen.toFixed(0));
 console.log("App");
+console.log(process.env);
 //
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -40,6 +45,7 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
+
   //
   onAuthStateChanged(auth, (user) => setUser(user));
   const routing = useRoute(user);
