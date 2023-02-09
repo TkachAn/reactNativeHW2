@@ -1,5 +1,7 @@
 import React from "react";
+import {Alert} from "react-native";
 import {createStackNavigator} from "@react-navigation/stack";
+import {Ionicons} from "@expo/vector-icons";
 import DefaultPosts from "../../nested/defaultPosts";
 import Comments from "../../nested/Comments";
 import Maps from "../../nested/Map";
@@ -9,6 +11,22 @@ console.log("PostsScreen!");
 const Nested = createStackNavigator();
 //
 const PostsScreen = () => {
+  const outButtonAlert = () => {
+    Alert.alert("На ВЫХОД с вещями", "до Свидапия!", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      {
+        text: "OK",
+        onPress: () => {
+          // await authSignOut();
+          console.log("OK Pressed");
+        },
+      }, //authSignOut()}, //
+    ]);
+  };
   return (
     <Nested.Navigator>
       <Nested.Screen
@@ -16,7 +34,16 @@ const PostsScreen = () => {
         component={DefaultPosts}
         options={{
           title: "Публикации!!!",
-          headerShown: false,
+          headerShown: true,
+          headerRight: ({color}) => (
+            <Ionicons
+              style={{marginRight: 20}}
+              name="exit-outline"
+              size={24}
+              color={color}
+              onPress={() => outButtonAlert()}
+            />
+          ),
         }}
       />
       <Nested.Screen
