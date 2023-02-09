@@ -32,7 +32,6 @@ export const CreatePosts = ({navigation}) => {
   const [shouldPublish, setShouldPublish] = useState(false);
   const [post, setPost] = useState(initialPost);
   const [errorMsg, setErrorMsg] = useState(null);
-
   // Camera
   const [cameraRef, setCameraRef] = useState(null);
   const [permission, requestPermission] = Camera.useCameraPermissions();
