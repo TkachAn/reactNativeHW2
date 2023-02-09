@@ -4,30 +4,29 @@ import {StyleSheet, View, Image, TouchableOpacity} from "react-native";
 import {Feather} from "@expo/vector-icons";
 //
 const widthScreen = Dimensions.get("window").width;
+const bg_img = require("../../assets/adaptive-icon.png");
 //
-export default function Avatar({pic, press}) {
+export default function Avatar() {
   const [icon, setIcon] = useState("");
   //
+  const pic = "";
+  let source_img;
   useEffect(() => {
     if (!pic) {
       setIcon("plus");
+      source_img = bg_img;
     } else {
       setIcon("x");
+      source_img = bg_img;
     }
   }, []);
+  const press = () => {};
   // console.log("pic:", pic);
   // console.log("icon:", icon);
   return (
     <View style={styles.avatar}>
       <View style={styles.picBox}>
-        {pic ? (
-          <Image source={{uri: pic}} style={{width: 120, height: 120}} />
-        ) : (
-          <Image
-            source={require("../../assets/adaptive-icon.png")}
-            style={{width: 120, height: 120}}
-          />
-        )}
+        <Image source={source_img} style={{width: 120, height: 120}} />
         <TouchableOpacity
           onPress={press}
           style={styles.plus}
