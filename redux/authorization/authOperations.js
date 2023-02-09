@@ -25,7 +25,7 @@ const authSignUp =
         photoURL: avatar,
       });
       const {uid, displayName, photoURL} = auth.currentUser; //email,
-
+      dispatch(authStateChange({stateChange: true}));
       dispatch(
         updateUserProfile({
           userId: uid,
@@ -47,13 +47,13 @@ const authSignIn =
       const user = await signInWithEmailAndPassword(auth, email, password);
       console.log("!user:", auth.currentUser.displayName);
       const {uid, displayName, photoURL} = auth.currentUser;
-
+      dispatch(authStateChange({stateChange: true}));
       dispatch(
         updateUserProfile({
           userId: uid,
           login: displayName,
           email,
-          logoImage: photoURL,
+          avatar: photoURL,
         })
       );
     } catch (error) {
