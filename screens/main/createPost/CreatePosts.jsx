@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: "91%",
     borderRadius: 25,
-    marginTop: 40,
+    marginTop: 30,
     marginBottom: 16,
     justifyContent: "center",
     alignItems: "center",
@@ -288,7 +288,7 @@ const styles = StyleSheet.create({
   photoContainer: {
     height: 240,
     width: "100%",
-    marginTop: 32,
+    marginTop: 25,
     backgroundColor: "#F6F6F6",
     borderWidth: 1,
     borderColor: "#E8E8E8",
@@ -314,7 +314,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     paddingBottom: 15,
-    marginBottom: 32,
+    marginBottom: 25,
   },
   btn: {
     alignItems: "center",
