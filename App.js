@@ -15,7 +15,7 @@ import {Provider, useDispatch} from "react-redux";
 import {onAuthStateChanged} from "firebase/auth";
 import {auth} from "./firebase/config";
 //
-import {useRoute} from "./routing";
+import {useRoute} from "./navigation/routing";
 import {store} from "./redux/store";
 //
 const widthScreen = Dimensions.get("window").width;
