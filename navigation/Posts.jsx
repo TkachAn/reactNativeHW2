@@ -1,7 +1,7 @@
 import React from "react";
-import {Alert} from "react-native";
-import {createStackNavigator} from "@react-navigation/stack";
-import {Ionicons} from "@expo/vector-icons";
+import { Alert } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { Ionicons } from "@expo/vector-icons";
 import DefaultPosts from "../screens/nested/defPosts";
 import Comments from "../screens/nested/Comments";
 import Maps from "../screens/nested/Map";
@@ -33,11 +33,20 @@ const PostsScreen = () => {
         name="DefaultPosts"
         component={DefaultPosts}
         options={{
-          title: "Публикации!!!",
+          title: "Публикации",
           headerShown: true,
-          headerRight: ({color}) => (
+          headerStyle: {
+            height: 88,
+            borderBottomWidth: 1,
+            borderBottomColor: "#B3B3B3",
+          },
+          headerTitleStyle: {
+            fontWeight: "bold",
+            lineHeight: 22,
+          },
+          headerRight: ({ color }) => (
             <Ionicons
-              style={{marginRight: 20}}
+              style={{ marginRight: 20 }}
               name="exit-outline"
               size={24}
               color={color}
