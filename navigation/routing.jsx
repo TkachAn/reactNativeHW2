@@ -1,15 +1,15 @@
 // import React from "react";
-import {useDispatch} from "react-redux";
-import {StyleSheet, View} from "react-native";
-import {createStackNavigator} from "@react-navigation/stack";
-import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import { useDispatch } from "react-redux";
+import { StyleSheet, View } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 //
-import {Feather} from "@expo/vector-icons";
-import {Ionicons} from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 //
 
 //
-import {authSignOut} from "../redux/authorization/authOperations";
+import { authSignOut } from "../redux/authorization/authOperations";
 //
 import LoginScreen from "../screens/auth/login";
 import RegisterScreen from "../screens/auth/regist";
@@ -59,7 +59,7 @@ export const useRoute = (isAuth) => {
     // </AuthStack.Navigator>
     <MainTab.Navigator
       screenOptions={{
-        headerTitleAlign: "center",
+        headerTitleAlign: "left",
         headerStyle: {
           height: 88,
           borderBottomWidth: 1,
@@ -71,7 +71,7 @@ export const useRoute = (isAuth) => {
         },
         tabBarStyle: {
           height: 83,
-          paddingHorizontal: 63,
+          paddingHorizontal: 43,
           borderTopWidth: 1,
           borderTopColor: "#B3B3B3",
         },
@@ -84,17 +84,18 @@ export const useRoute = (isAuth) => {
         component={PostsScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({focused, size, color}) => (
+          tabBarIcon: ({ focused, size, color }) => (
             <Feather name="grid" size={size} color={color} />
           ),
-          title: "Публикации!",
+          // title: "Публикации!",
         }}
       />
       <MainTab.Screen
         name="Create"
         component={CreatePost}
         options={{
-          tabBarIcon: ({size}) => {
+          headerShown: true,
+          tabBarIcon: ({ size }) => {
             return (
               <View style={styles.create}>
                 <Feather name={"plus"} size={size} color={"#fff"} />
@@ -102,20 +103,20 @@ export const useRoute = (isAuth) => {
             );
           },
           title: "Создать публикацию",
-          tabBarShowLabel: false,
-          tabBarStyle: [
-            {
-              display: "none",
-            },
-            null,
-          ],
+          tabBarShowLabel: true,
+          // tabBarStyle: [
+          //   {
+          //     display: "none",
+          //   },
+          //   null,
+          // ],
         }}
       />
       <MainTab.Screen
         name="Profile"
         component={ProfileScreen}
         options={{
-          tabBarIcon: ({focused, size, color}) => (
+          tabBarIcon: ({ focused, size, color }) => (
             <Feather name="user" size={size} color={color} />
           ),
 
