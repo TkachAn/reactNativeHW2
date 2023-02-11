@@ -1,6 +1,6 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 //
-console.log("Slises!");
+console.log("photoSlise");
 //
 const initialPhoto = {
   photoId: null,
@@ -13,14 +13,14 @@ export const photoSlice = createSlice({
   name: "photo",
   initialPhoto,
   reducers: {
-    createPhoto: (state, {payload}) => {
+    createPhoto: (state, { payload }) => {
       state.photoId = payload.photoId;
       state.photo = payload.photo;
       state.title = payload.title;
       state.photoLocation = payload.photoLocation;
       state.currentLocation = payload.currentLocation;
     },
-    deletePhoto: (state, {payload}) => {
+    deletePhoto: (state, { payload }) => {
       state.photoId = null;
       state.photo = null;
       state.title = null;
@@ -29,4 +29,3 @@ export const photoSlice = createSlice({
     },
   },
 });
-
